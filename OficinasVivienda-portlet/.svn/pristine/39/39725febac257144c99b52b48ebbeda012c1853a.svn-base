@@ -1,0 +1,177 @@
+<%@ include file="/html/oficinasviviendabuscador/init.jsp"%>
+
+<%
+	//Municipios
+	List<Municipio> listaMunicipios = MunicipioLocalServiceUtil
+							.getMunicipios(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+
+	String[] municipiosSel = ParamUtil.getParameterValues(request, Parametros.FIELD_MUNICIPIOSID);
+	//out.println("municipiosSel="+ StringUtil.merge(municipiosSel));
+	
+	//Convertir a lista, para poder aplicar método .contains()
+	List<String> municipiosSeleccionados = new ArrayList<String>();
+	if (municipiosSel != null && municipiosSel.length > 0) {
+		municipiosSeleccionados = Arrays.asList(municipiosSel);
+	}
+	
+	//Servicios
+	List<Servicio> listaServicios = ServicioLocalServiceUtil.obtenerNecesidades(	
+						PortalUtil.getCompanyId(request),
+						PortalUtil.getScopeGroupId(request),
+						QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+	
+	long[] serviciosSel = ParamUtil.getLongValues(request, Parametros.FIELD_SERVICIOSID);
+	//out.println("serviciosSel="+ StringUtil.merge(serviciosSel));
+	
+	//Convertir a lista, para poder aplicar método .contains()
+ 	List<Long> serviciosSeleccionados = new ArrayList<Long>();
+ 	if (serviciosSel != null && serviciosSel.length > 0) {
+ 		serviciosSeleccionados = ListUtil.toList(serviciosSel);
+ 	}
+	
+	//Tipo Oficina
+	List<Tipo> listaTipos = TipoLocalServiceUtil.obtenerTipos(	
+						PortalUtil.getCompanyId(request),
+						PortalUtil.getScopeGroupId(request),
+						QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+	
+	long[] tiposSel = ParamUtil.getLongValues(request, Parametros.FIELD_TIPOSID);
+	//out.println("serviciosSel="+ StringUtil.merge(serviciosSel));
+	
+	//Convertir a lista, para poder aplicar método .contains()
+ 	List<Long> tiposSeleccionados = new ArrayList<Long>();
+ 	if (tiposSel != null && tiposSel.length > 0) {
+ 		tiposSeleccionados = ListUtil.toList(tiposSel);
+ 	}
+	
+
+%>
+
+<liferay-portlet:renderURL varImpl="buscarOficinasURL">
+	<portlet:param name="mvcPath"
+		value="/html/oficinasviviendabuscador/view.jsp" />
+</liferay-portlet:renderURL>
+
+<form action="<%=buscarOficinasURL.toString()%>" method="get"
+	class="formsubs" name="formsubs">
+	<liferay-portlet:renderURLParams varImpl="buscarOficinasURL" />
+	<liferay-portlet:renderURL varImpl="paginationURL">
+		<portlet:param name="<%=Parametros.FIELD_MUNICIPIOSID%>"
+			value="<%=StringUtil.merge(municipiosSel)%>" />
+		<portlet:param name="<%=Parametros.FIELD_SERVICIOSID%>"
+			value="<%=StringUtil.merge(serviciosSel)%>" />
+		<portlet:param name="<%=Parametros.FIELD_TIPOSID%>"
+			value="<%=StringUtil.merge(tiposSel)%>" />
+		<portlet:param name="mvcPath"
+			value="/html/oficinasviviendabuscador/view.jsp" />
+	</liferay-portlet:renderURL>
+	<div class="form-icon-box">
+		<div class="form-icon-box-control">
+			<div class="form-group">
+				<strong><label for="<%=Parametros.FIELD_MUNICIPIOSID%>">
+
+						<%=LanguageUtil.get(pageContext, "osm-municipos")%></label></strong><br /> <select
+					data-placeholder="<%=LanguageUtil.get(pageContext, "osm-municipos")%>"
+					name="<%=Parametros.FIELD_MUNICIPIOSID%>"
+					id="<%=Parametros.FIELD_MUNICIPIOSID%>" multiple
+					class="col-xs-12 input-sm chosen-select">
+					<%
+						for (Municipio mun : listaMunicipios) {
+							String selected = "";
+							if (municipiosSeleccionados.contains(mun.getCodigoIne())) {
+								selected = "selected";
+							}
+					%>
+					<option value="<%=mun.getCodigoIne()%>" <%=selected%>><%=mun.getNombre()%></option>
+					<%
+						}
+					%>
+				</select>
+			</div>
+			<div class="form-group">
+				<strong><label for="<%=Parametros.FIELD_SERVICIOSID%>">
+
+						<%=LanguageUtil.get(pageContext, "servicio-buscador")%></label></strong><br /> <select
+					data-placeholder="<%=LanguageUtil.get(pageContext, "servicio-buscador")%>"
+					name="<%=Parametros.FIELD_SERVICIOSID%>"
+					id="<%=Parametros.FIELD_SERVICIOSID%>" multiple
+					class="col-xs-12 input-sm chosen-select">
+					<%
+						for (Servicio servicio : listaServicios) {
+							String selected = "";
+							if (serviciosSeleccionados.contains(servicio.getIdServicio())) {
+								selected = "selected";
+							}
+					%>
+					<option value="<%=servicio.getIdServicio()%>" <%=selected%>><%=servicio.getNecesidad(locale)%></option>
+					<%
+						}
+					%>
+				</select>
+			</div>
+			<div class="form-group">
+				<strong><label for="<%=Parametros.FIELD_TIPOSID%>">
+
+						<%=LanguageUtil.get(pageContext, "tipo-oficina")%></label></strong><br /> <select
+					data-placeholder="<%=LanguageUtil.get(pageContext, "tipo-oficina")%>"
+					name="<%=Parametros.FIELD_TIPOSID%>"
+					id="<%=Parametros.FIELD_TIPOSID%>" multiple
+					class="col-xs-12 input-sm chosen-select">
+					<%
+						for (Tipo tipo : listaTipos) {
+							String selected = "";
+							if (tiposSeleccionados.contains(tipo.getIdTipo())) {
+								selected = "selected";
+							}
+					%>
+					<option value="<%=tipo.getIdTipo()%>" <%=selected%>><%=tipo.getNombre(locale)%></option>
+					<%
+						}
+					%>
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="center-button">
+			<button type="submit" class="btn btn-default">
+				<i class="icon-ui-search"></i><%=LanguageUtil.get(pageContext, "search")%>
+			</button>
+		</div>
+	</div>
+</form>
+
+
+
+<liferay-ui:search-container iteratorURL="<%=paginationURL%>"
+	deltaConfigurable="true" delta="<%=Parametros.DELTA_BUSCADOR%>"
+	emptyResultsMessage="oficina-no-resultados">
+
+	<liferay-ui:search-container-results
+		results="<%=OficinaServicioMunicipioLocalServiceUtil.
+						obtenerOficinas(PortalUtil.getCompanyId(request),
+								PortalUtil.getScopeGroupId(request),
+								municipiosSel, serviciosSel, tiposSel, 
+								searchContainer.getStart(), searchContainer.getEnd())%>"
+		total="<%=OficinaServicioMunicipioLocalServiceUtil.
+				obtenerOficinasTotal(PortalUtil.getCompanyId(request),
+						PortalUtil.getScopeGroupId(request),
+						municipiosSel, serviciosSel, tiposSel)%>" />
+
+	<liferay-ui:search-container-row
+		className="java.lang.Long" modelVar="osm">
+		<liferay-ui:search-container-column-text >
+			<%=osm%>
+		</liferay-ui:search-container-column-text>
+	</liferay-ui:search-container-row>
+	<liferay-ui:search-iterator searchContainer="<%=searchContainer%>"
+		paginate="<%=true%>" />
+</liferay-ui:search-container>
+ 
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.chosen-select').chosen({no_results_text: 'hola'});
+	});
+</script>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
+<service-builder package-path="cat.diba.oficinasvivienda">
+	<author>gonzalezscr</author>
+	<namespace>OficinasVivienda</namespace>
+
+	<entity name="Servicio" table="Servicio" local-service="true" remote-service="false"
+		cache-enabled="false">
+		<!-- PK fields -->
+		<column name="idServicio" type="long" primary="true" />
+
+		<!-- Other fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="nombre" type="String"  localized="true"/>
+		<column name="necesidad" type="String"  localized="true"/>
+		
+		<!-- Finder methods -->
+		<finder name="companyGroup" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="groupId" />
+		</finder>
+	</entity>
+	
+	<entity name="Tipo" table="Tipo" local-service="true" remote-service="false"
+		cache-enabled="false">
+		<!-- PK fields -->
+		<column name="idTipo" type="long" primary="true" />
+
+		<!-- Other fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="nombre" type="String"  localized="true"/>
+		
+		<!-- Finder methods -->
+		<finder name="companyGroup" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="groupId" />
+		</finder>
+	</entity>
+	
+	<entity name="Municipio" table="Municipio" local-service="true" remote-service="false">
+		<!-- PK fields -->
+		<column name="codigoIne" type="String" primary="true" />
+
+		<!-- Other fields -->
+		<column name="nombre" type="String"/>
+		
+	</entity>
+	
+	<entity name="OficinaServicioMunicipio" table="OficinaServicioMunicipio" local-service="true" remote-service="false">
+		<!-- PK fields -->
+		<column name="id" type="long" primary="true" />
+		
+		<!-- Other fields -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="idOficina" type="long"  />
+		<column name="idServicio" type="long"  />
+		<column name="codigoIne" type="String"  />
+		
+		<!-- Finder methods -->
+		<finder name="Oficina" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="groupId" />
+			<finder-column name="idOficina" />
+		</finder>
+		<finder name="OficinaServicio" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="groupId" />
+			<finder-column name="idOficina" />
+			<finder-column name="idServicio" />
+		</finder>
+		<finder name="OficinaIne" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="groupId" />
+			<finder-column name="idOficina" />
+			<finder-column name="codigoIne" />
+		</finder>
+		<finder name="Servicio" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="groupId" />
+			<finder-column name="idServicio" />
+		</finder>
+	</entity>
+	
+	<entity name="OficinaTipo" table="OficinaTipo" local-service="true" remote-service="false">
+		<!-- PK fields -->
+		<column name="id" type="long" primary="true" />
+		
+		<!-- Other fields -->
+		<column name="idOficina" type="long"  />
+		<column name="idTipo" type="long" />		
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		
+		<!-- Finder methods -->
+		<finder name="OficinaTipo" return-type="OficinaTipo">
+			<finder-column name="companyId" />
+			<finder-column name="groupId" />
+			<finder-column name="idOficina" />
+		</finder>
+		<finder name="Tipo" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="groupId" />
+			<finder-column name="idTipo" />
+		</finder>
+	</entity>
+</service-builder>

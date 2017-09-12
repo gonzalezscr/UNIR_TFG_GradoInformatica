@@ -1,0 +1,124 @@
+/**
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ *
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
+ *
+ *
+ *
+ */
+
+package cat.diba.oficinasvivienda.model;
+
+import java.io.Serializable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * This class is used by SOAP remote services.
+ *
+ * @author gonzalezscr
+ * @generated
+ */
+public class ServicioSoap implements Serializable {
+	public static ServicioSoap toSoapModel(Servicio model) {
+		ServicioSoap soapModel = new ServicioSoap();
+
+		soapModel.setIdServicio(model.getIdServicio());
+		soapModel.setCompanyId(model.getCompanyId());
+		soapModel.setGroupId(model.getGroupId());
+		soapModel.setNombre(model.getNombre());
+
+		return soapModel;
+	}
+
+	public static ServicioSoap[] toSoapModels(Servicio[] models) {
+		ServicioSoap[] soapModels = new ServicioSoap[models.length];
+
+		for (int i = 0; i < models.length; i++) {
+			soapModels[i] = toSoapModel(models[i]);
+		}
+
+		return soapModels;
+	}
+
+	public static ServicioSoap[][] toSoapModels(Servicio[][] models) {
+		ServicioSoap[][] soapModels = null;
+
+		if (models.length > 0) {
+			soapModels = new ServicioSoap[models.length][models[0].length];
+		}
+		else {
+			soapModels = new ServicioSoap[0][0];
+		}
+
+		for (int i = 0; i < models.length; i++) {
+			soapModels[i] = toSoapModels(models[i]);
+		}
+
+		return soapModels;
+	}
+
+	public static ServicioSoap[] toSoapModels(List<Servicio> models) {
+		List<ServicioSoap> soapModels = new ArrayList<ServicioSoap>(models.size());
+
+		for (Servicio model : models) {
+			soapModels.add(toSoapModel(model));
+		}
+
+		return soapModels.toArray(new ServicioSoap[soapModels.size()]);
+	}
+
+	public ServicioSoap() {
+	}
+
+	public long getPrimaryKey() {
+		return _idServicio;
+	}
+
+	public void setPrimaryKey(long pk) {
+		setIdServicio(pk);
+	}
+
+	public long getIdServicio() {
+		return _idServicio;
+	}
+
+	public void setIdServicio(long idServicio) {
+		_idServicio = idServicio;
+	}
+
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
+	}
+
+	public long getGroupId() {
+		return _groupId;
+	}
+
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+	}
+
+	public String getNombre() {
+		return _nombre;
+	}
+
+	public void setNombre(String nombre) {
+		_nombre = nombre;
+	}
+
+	private long _idServicio;
+	private long _companyId;
+	private long _groupId;
+	private String _nombre;
+}

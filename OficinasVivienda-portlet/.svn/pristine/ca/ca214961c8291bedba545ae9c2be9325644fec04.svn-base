@@ -1,0 +1,38 @@
+package cat.diba.oficinasvivienda.web;
+
+import cat.diba.oficinasvivienda.model.OficinaServicioMunicipio;
+import cat.diba.oficinasvivienda.service.OficinaServicioMunicipioLocalServiceUtil;
+import cat.diba.oficinasvivienda.util.Parametros;
+
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.util.PortalUtil;
+import com.liferay.util.bridges.mvc.MVCPortlet;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.PortletException;
+import javax.portlet.ProcessAction;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+
+/**
+ * Portlet implementation class OficinasViviendaBuscadorPortlet
+ */
+public class OficinasViviendaBuscadorPortlet extends MVCPortlet {
+ 
+	private static Log LOG = LogFactoryUtil
+			.getLog(OficinasViviendaBuscadorPortlet.class);
+	
+	
+	
+	
+}

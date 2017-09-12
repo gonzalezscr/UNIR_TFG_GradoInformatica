@@ -1,0 +1,19 @@
+#Control Panel
+javax.portlet.title=Oficines Habitatge Administraciò
+javax.portlet.description=Manteniment Oficines d'Habitatge.
+
+
+oficina-listado=Llistat Oficines d'Habitatge
+oficina-no-resultados=No s'ha trobat cap Oficina
+
+servicio-mantenimiento=Manteniment Serveis
+servicio-listado=Llistat de Serveis
+servicio-no-resutlados=No s'ha trobat cap Servei
+servicio-nuevo=Nou Servei
+servicio-error-nombre-obligatori=El camp Nom és obligatori.
+
+tipos-mantenimiento=Manteniment Tipus Oficina
+tipos-no-resultados=No s'ha trobat cap Tipus d'Oficina
+
+nom=Nom:
+id=ID:

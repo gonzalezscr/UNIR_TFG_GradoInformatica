@@ -1,0 +1,31 @@
+create table Municipio (
+	codigoIne VARCHAR(75) not null primary key,
+	nombre VARCHAR(75) null
+);
+
+create table OficinaServicioMunicipio (
+	id_ LONG not null primary key,
+	idOficina LONG,
+	idServicio LONG,
+	codigoIne VARCHAR(75) null
+);
+
+create table OficinaTipo (
+	id_ LONG not null primary key,
+	idOficina LONG,
+	idTipo LONG
+);
+
+create table Servicio (
+	idServicio LONG not null primary key,
+	companyId LONG,
+	groupId LONG,
+	nombre STRING null
+);
+
+create table Tipo (
+	idTipo LONG not null primary key,
+	companyId LONG,
+	groupId LONG,
+	nombre STRING null
+);

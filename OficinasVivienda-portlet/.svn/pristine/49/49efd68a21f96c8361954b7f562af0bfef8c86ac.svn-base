@@ -1,0 +1,44 @@
+<%@ include file="/html/oficinasviviendaadministracion/init.jsp"%>
+
+<%
+
+	long idOficina = ParamUtil.getLong(request, Parametros.FIELD_IDOFICINA);
+	String nombreOficina = ParamUtil.getString(request, Parametros.FIELD_NOMBRE);
+	
+	List <Tipo> listaTiposOficina = TipoLocalServiceUtil.getTipos(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+	long idTipo = OficinaTipoLocalServiceUtil.obtenerTipoPorOficina(idOficina);
+	
+	
+%>
+
+<liferay-portlet:renderURL var="cancelar" >
+	<liferay-portlet:param name="mvcPath" value="/html/oficinasviviendaadministracion/view.jsp" />
+</liferay-portlet:renderURL>
+
+<portlet:actionURL name='guardarOficina' var="guardarOficinaURL" />
+
+<div class="taglib-header">
+	<h3 class="header-title"><%=nombreOficina%></h3>
+</div>
+<aui:form name="fm" action="<%=guardarOficinaURL.toString()%>"
+	method="post">
+	<aui:input name="<%=Parametros.FIELD_IDOFICINA%>" type="hidden" value="<%=idOficina%>" />
+
+	<label class="control-label" ><%=LanguageUtil.get(pageContext, "tipo-oficina") %></label>
+	<aui:select label="" name='<%=Parametros.FIELD_IDTIPO%>' required="true" showEmptyOption='true' >
+		<%
+			for (Tipo tipo : listaTiposOficina) {
+		%>
+		<aui:option label="<%=tipo.getNombre(locale)%>"
+			value='<%=tipo.getIdTipo()%>'
+			selected="<%=(idTipo == tipo.getIdTipo())%>" />
+		<%
+			}
+		%>
+	</aui:select>
+
+	<aui:button name="submit" type="submit" value="save" />
+	<aui:button href="<%=cancelar.toString()%>" type="cancel" />
+</aui:form>
+

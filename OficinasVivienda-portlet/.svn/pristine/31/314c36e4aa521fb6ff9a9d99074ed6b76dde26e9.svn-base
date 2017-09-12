@@ -1,0 +1,71 @@
+<%
+
+	
+	
+	List <Servicio> listaServicios = ServicioLocalServiceUtil.getServicios(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+	
+	
+	
+	
+%>
+
+
+	<div id="servicioMunicipio">
+		<div class="lfr-form-row lfr-form-row-inline">
+			<div class="row-fields" >
+
+				<aui:select label="servicio" name="<%=Parametros.FIELD_ID%>">
+					<%
+						for (Servicio servicio : listaServicios) {
+					%>
+					<aui:option label="<%=servicio.getNombre(locale)%>"
+						value='<%=servicio.getIdServicio()%>' />
+					<%
+						}
+					%>
+				</aui:select>
+			</div>
+			<div class="row-fields" >
+			<%
+			
+			List <Municipio> listaMunicipio = MunicipioLocalServiceUtil.getMunicipios(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+			
+			
+			//Generació de llistes
+			List<KeyValuePair> municipiosLeftList = new ArrayList<KeyValuePair>();
+			List<KeyValuePair> municipiosRightList = new ArrayList<KeyValuePair>();
+// 			for(String ambitSeleccionat:ambitsSeleccionats){
+// 				Group group = GroupLocalServiceUtil.getGroup(Long.valueOf(ambitSeleccionat));
+// 				ambitsLeftList.add(new KeyValuePair(String.valueOf(group.getGroupId()), 
+// 							group.getGroupId()==company.getGroup().getGroupId()? "Global" : HtmlUtil.escape(group.getDescriptiveName())));
+// 			}
+			
+			for (Municipio municipio : listaMunicipio) {
+				
+				municipiosRightList.add(new KeyValuePair(municipio.getCodigoIne(), HtmlUtil.escape(municipio.getNombre())));
+				
+			}
+			//ambitsRightList = ListUtil.sort(ambitsRightList, new KeyValuePairComparator(false, true));
+			%>
+			<aui:input name="municipiosIds" type="hidden" />
+			<liferay-ui:input-move-boxes
+				leftTitle='<%=LanguageUtil.get(pageContext,
+					"cercador.config.seleccionats")%>'
+				rightTitle='<%=LanguageUtil.get(pageContext,
+					"cercador.config.disponibles")%>'
+				leftBoxName="currentMunicipiosIds"
+				rightBoxName="availableMunicipiosIds" leftReorder="true"
+				leftList="<%=municipiosLeftList%>"
+				rightList="<%=municipiosRightList%>" />
+
+		</div>
+		</div>
+
+
+	</div>
+
+	
+
+
+
+	

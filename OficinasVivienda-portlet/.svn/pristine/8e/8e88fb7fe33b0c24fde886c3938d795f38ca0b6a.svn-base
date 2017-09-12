@@ -1,0 +1,19 @@
+##Control Panel
+javax.portlet.title=Oficinas Vivienda Administración 
+javax.portlet.description=Mantenimiento Oficinas Vivienda
+
+
+oficina-listado=Listado Oficinass de Vivienda
+oficina-no-resultados=No se ha encontrado ninguna Oficina
+
+servicio-mantenimiento=Mantenimento Servicios
+servicio-listado=Listado de Servicios
+servicio-no-resutlados=No se ha enconctrado ningún Servicio
+servicio-nuevo=Nuevo Servicio
+servicio-error-nombre-obligatori=El camp Nombre és obligatorio.
+
+tipos-mantenimiento=Mantenimento Tipo Oficina
+tipos-no-resultados=No se ha encontradp ningún Tipo de Oficina
+
+nom=Nombre:
+id=ID:

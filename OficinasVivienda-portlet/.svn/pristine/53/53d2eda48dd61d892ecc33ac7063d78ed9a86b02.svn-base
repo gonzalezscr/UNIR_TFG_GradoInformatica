@@ -1,0 +1,4 @@
+create index IX_8FECF10E on OficinaServicioMunicipio (idOficina);
+create index IX_51363553 on OficinaServicioMunicipio (idOficina, idServicio);
+
+create index IX_80A5733B on OficinaTipo (idOficina);

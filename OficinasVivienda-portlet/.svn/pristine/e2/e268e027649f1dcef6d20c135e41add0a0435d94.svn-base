@@ -1,0 +1,1 @@
+create index IX_80A5733B on OficinaTipo (idOficina);

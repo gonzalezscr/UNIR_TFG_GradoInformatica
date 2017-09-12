@@ -1,0 +1,210 @@
+package cat.diba.oficinasvivienda.web;
+
+import cat.diba.oficinasvivienda.model.OficinaTipo;
+import cat.diba.oficinasvivienda.model.Servicio;
+import cat.diba.oficinasvivienda.model.Tipo;
+import cat.diba.oficinasvivienda.model.impl.OficinaTipoImpl;
+import cat.diba.oficinasvivienda.model.impl.ServicioImpl;
+import cat.diba.oficinasvivienda.model.impl.TipoImpl;
+import cat.diba.oficinasvivienda.service.OficinaTipoLocalServiceUtil;
+import cat.diba.oficinasvivienda.service.ServicioLocalServiceUtil;
+import cat.diba.oficinasvivienda.service.TipoLocalServiceUtil;
+import cat.diba.oficinasvivienda.service.persistence.OficinaTipoPK;
+import cat.diba.oficinasvivienda.util.OficinasViviendaUtil;
+import cat.diba.oficinasvivienda.util.Parametros;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.util.LocalizationUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.util.PortalUtil;
+import com.liferay.util.bridges.mvc.MVCPortlet;
+
+import java.util.Locale;
+import java.util.Map;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.ProcessAction;
+
+/**
+ * Portlet implementation class OficinasViviendaAdministracionPortlet
+ */
+public class OficinasViviendaAdministracionPortlet extends MVCPortlet {
+
+	private static Log LOG = LogFactoryUtil
+			.getLog(OficinasViviendaAdministracionPortlet.class);
+
+
+	@ProcessAction(name = "guardarServicio")
+	public void guardarServicio(ActionRequest req, ActionResponse resp)
+			throws Exception {
+		LOG.error("guardarServicio-INICI");
+
+		// Recuperar valors formulari
+		long idServicio = ParamUtil.getLong(req, Parametros.FIELD_ID, -1);
+		LOG.error("idServei=" + idServicio);
+
+		Map<Locale, String> nombre = LocalizationUtil.getLocalizationMap(req,
+				Parametros.FIELD_NOMBRE);
+		LOG.error("nom=" + nombre);
+		Servicio servicio = null;
+
+		if (!OficinasViviendaUtil.isMapFieldEmpty(nombre)) {
+			if (idServicio == -1) { // Nou servei
+				servicio = new ServicioImpl();
+				servicio.setNombreMap(nombre);
+
+				ServicioLocalServiceUtil.nuevoServicio(servicio);
+
+			} else { // Actualitzar servei
+				servicio = ServicioLocalServiceUtil.getServicio(idServicio);
+				servicio.setNombreMap(nombre);
+				
+				ServicioLocalServiceUtil.updateServicio(servicio);
+			}
+		}else{
+			SessionErrors.add(req, "servei-error-nom-obligatori");
+		}
+			
+		PortalUtil.copyRequestParameters(req, resp);
+		resp.setRenderParameter("mvcPath",
+				"/html/oficinasviviendaadministracion/listadoServicio.jsp");
+
+		LOG.error("guardarServicio-FI");
+
+	}
+	
+	@ProcessAction(name = "eliminarServicio")
+	public void eliminarServicio(ActionRequest req, ActionResponse resp)
+			throws Exception {
+		LOG.error("eliminarServicio-Inici");
+		
+		long idServicio = ParamUtil.getLong(req, Parametros.FIELD_ID, -1);
+		
+		if (idServicio != -1) {
+			ServicioLocalServiceUtil.deleteServicio(idServicio);
+		}
+		
+		PortalUtil.copyRequestParameters(req, resp);
+		resp.setRenderParameter("mvcPath",
+				"/html/oficinasviviendaadministracion/listadoServicio.jsp");
+
+		LOG.error("eliminarServicio-FI");
+
+	}
+	
+	@ProcessAction(name = "guardarTipo")
+	public void guardarTipo(ActionRequest req, ActionResponse resp)
+			throws Exception {
+		LOG.error("guardarTipo-INICI");
+
+		// Recuperar valors formulari
+		long idTipo = ParamUtil.getLong(req, Parametros.FIELD_IDTIPO, -1);
+		LOG.error("Tipo=" + idTipo);
+
+		Map<Locale, String> nombre = LocalizationUtil.getLocalizationMap(req,
+				Parametros.FIELD_NOMBRE);
+		LOG.error("nom=" + nombre);
+		Tipo tipo = null;
+
+		if (!OficinasViviendaUtil.isMapFieldEmpty(nombre)) {
+			if (idTipo == -1) { // Nou servei
+				tipo = new TipoImpl();
+				tipo.setNombreMap(nombre);
+
+				TipoLocalServiceUtil.nuevoTipo(tipo); 
+
+			} else { // Actualitzar servei
+				tipo = TipoLocalServiceUtil.getTipo(idTipo);
+				tipo.setNombreMap(nombre);
+				
+				TipoLocalServiceUtil.updateTipo(tipo);
+			}
+		}else{
+			SessionErrors.add(req, "tipo-error-nom-obligatori");
+		}
+			
+		PortalUtil.copyRequestParameters(req, resp);
+		resp.setRenderParameter("mvcPath",
+				"/html/oficinasviviendaadministracion/listadoTipo.jsp");
+
+		LOG.error("guardarTipo-FI");
+
+	}
+	
+	@ProcessAction(name = "eliminarTipo")
+	public void eliminarTipo(ActionRequest req, ActionResponse resp)
+			throws Exception {
+		LOG.error("eliminarTipo-Inici");
+		
+		long idTipo = ParamUtil.getLong(req, Parametros.FIELD_IDTIPO, -1);
+		
+		if (idTipo != -1) {
+			TipoLocalServiceUtil.deleteTipo(idTipo);
+		}
+		
+		PortalUtil.copyRequestParameters(req, resp);
+		resp.setRenderParameter("mvcPath",
+				"/html/oficinasviviendaadministracion/listadoTipo.jsp");
+
+		LOG.error("eliminarTipo-FI");
+
+	}
+	
+	@ProcessAction(name = "guardarOficina")
+	public void guardarOficina(ActionRequest req, ActionResponse resp)
+			throws Exception {
+		LOG.error("guardarOficina-INICI");
+		
+		long idOficina = ParamUtil.getLong(req, Parametros.FIELD_IDOFICINA, -1);
+		long idTipo = ParamUtil.getLong(req, Parametros.FIELD_IDTIPO, -1);
+		
+		OficinaTipo ofiTipo = OficinaTipoLocalServiceUtil.obtenerOficinaTipoPorOficina(idOficina);
+		
+		if ( ofiTipo == null){
+			ofiTipo = new OficinaTipoImpl();
+			ofiTipo.setIdOficina(idOficina);
+			ofiTipo.setIdTipo(idTipo);
+
+			OficinaTipoLocalServiceUtil.nuevaOficinaTipo(ofiTipo); 
+		}else{
+			ofiTipo.setIdTipo(idTipo);
+			OficinaTipoLocalServiceUtil.updateOficinaTipo(ofiTipo);
+		}
+		
+		//Asignar Servicio-Municipios
+		String rowIndexes = req.getParameter("rowIndexes");
+		 
+		LOG.error("::::::::::::::::rowIndexes:::::::::::::::::::::::" + rowIndexes); 
+ 
+        /**
+         * Split the row index by comma
+         */
+ 
+        String[] indexOfRows = rowIndexes.split(",");
+ 
+        /**
+         * indexOfRows.length is the number of rows in the UI
+         */
+ 
+        LOG.error("::::::::::::::::indexOfRows.length:::::::::::::::::::::::"+ indexOfRows.length);
+ 
+        for (int i = 0; i < indexOfRows.length; i++) {
+ 
+            
+            //String gender = actionRequest.getParameter("gender"+ indexOfRows[i]);
+            
+//            long[] municipios = StringUtil.split(ParamUtil.getString(
+//            		req, "currentMunicipiosIds"), 0L);
+            String municipios = ParamUtil.getString(req, "municipiosIds"+ indexOfRows[i]);
+ 
+            LOG.error("::::::::::::Gender::::::::::::::" + municipios);
+        }
+		
+	}
+
+
+}

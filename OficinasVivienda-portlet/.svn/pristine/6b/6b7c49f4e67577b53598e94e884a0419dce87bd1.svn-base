@@ -1,0 +1,78 @@
+/**
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ *
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
+ *
+ *
+ *
+ */
+
+package cat.diba.oficinasvivienda.service.impl;
+
+import java.util.List;
+
+import cat.diba.oficinasvivienda.model.OficinaServicioMunicipio;
+import cat.diba.oficinasvivienda.model.Servicio;
+import cat.diba.oficinasvivienda.service.base.OficinaServicioMunicipioLocalServiceBaseImpl;
+
+/**
+ * The implementation of the oficina servicio municipio local service.
+ *
+ * <p>
+ * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link cat.diba.oficinasvivienda.service.OficinaServicioMunicipioLocalService} interface.
+ *
+ * <p>
+ * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
+ * </p>
+ *
+ * @author gonzalezscr
+ * @see cat.diba.oficinasvivienda.service.base.OficinaServicioMunicipioLocalServiceBaseImpl
+ * @see cat.diba.oficinasvivienda.service.OficinaServicioMunicipioLocalServiceUtil
+ */
+public class OficinaServicioMunicipioLocalServiceImpl
+	extends OficinaServicioMunicipioLocalServiceBaseImpl {
+	/*
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never reference this interface directly. Always use {@link cat.diba.oficinasvivienda.service.OficinaServicioMunicipioLocalServiceUtil} to access the oficina servicio municipio local service.
+	 */
+	
+	public List<OficinaServicioMunicipio> obtenerRelacionPorOficinaServicio(long idOficina, long idServicio) {
+		try {
+			return getOficinaServicioMunicipioPersistence().findByOficinaServicio(idOficina, idServicio);
+			
+		} catch (Exception e) {
+			return null;
+		}
+		
+	}
+	
+	public List<OficinaServicioMunicipio> obtenerRelacionPorOficina(long idOficina) {
+		try {
+			return getOficinaServicioMunicipioPersistence().findByOficinaServicioMunicipio(idOficina);
+			
+		} catch (Exception e) {
+			return null;
+		}
+		
+	}
+	
+	public OficinaServicioMunicipio nuevaOficinaSM(OficinaServicioMunicipio osm) {
+
+		try {
+			long Id = counterLocalService
+					.increment(Servicio.class.getName());
+			osm.setId(Id);
+			return super.addOficinaServicioMunicipio(osm);
+
+		} catch (Exception e) {
+			return null;
+		} 
+
+	}
+}

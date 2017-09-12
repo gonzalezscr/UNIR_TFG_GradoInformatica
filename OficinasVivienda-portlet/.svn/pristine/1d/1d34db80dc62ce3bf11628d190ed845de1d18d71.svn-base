@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+	<persistence-unit-metadata>
+		<xml-mapping-metadata-complete/>
+		<persistence-unit-defaults>
+			<access>PROPERTY</access>
+		</persistence-unit-defaults>
+	</persistence-unit-metadata>
+	<mapped-superclass class="cat.diba.oficinasvivienda.model.impl.MunicipioModelImpl">
+		<attributes>
+			<id name="codigoIne" />
+			<basic name="nombre" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="cat.diba.oficinasvivienda.model.impl.OficinaServicioMunicipioModelImpl">
+		<attributes>
+			<id name="id">
+				<column name="ID_" />
+			</id>
+			<basic name="idOficina" />
+			<basic name="idServicio" />
+			<basic name="codigoIne" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="cat.diba.oficinasvivienda.model.impl.OficinaTipoModelImpl">
+		<attributes>
+			<id name="id">
+				<column name="ID_" />
+			</id>
+			<basic name="idOficina" />
+			<basic name="idTipo" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="cat.diba.oficinasvivienda.model.impl.ServicioModelImpl">
+		<attributes>
+			<id name="idServicio" />
+			<basic name="companyId" />
+			<basic name="groupId" />
+			<basic name="nombre" />
+			<transient name="modelAttributes" />
+			<transient name="nombreCurrentLanguageId" />
+			<transient name="nombreMap" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="cat.diba.oficinasvivienda.model.impl.TipoModelImpl">
+		<attributes>
+			<id name="idTipo" />
+			<basic name="companyId" />
+			<basic name="groupId" />
+			<basic name="nombre" />
+			<transient name="modelAttributes" />
+			<transient name="nombreCurrentLanguageId" />
+			<transient name="nombreMap" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<entity class="cat.diba.oficinasvivienda.model.impl.MunicipioImpl" name="Municipio">
+		<table name="Municipio" />
+		<attributes />
+	</entity>
+	<entity class="cat.diba.oficinasvivienda.model.impl.OficinaServicioMunicipioImpl" name="OficinaServicioMunicipio">
+		<table name="OficinaServicioMunicipio" />
+		<attributes />
+	</entity>
+	<entity class="cat.diba.oficinasvivienda.model.impl.OficinaTipoImpl" name="OficinaTipo">
+		<table name="OficinaTipo" />
+		<attributes />
+	</entity>
+	<entity class="cat.diba.oficinasvivienda.model.impl.ServicioImpl" name="Servicio">
+		<table name="Servicio" />
+		<attributes />
+	</entity>
+	<entity class="cat.diba.oficinasvivienda.model.impl.TipoImpl" name="Tipo">
+		<table name="Tipo" />
+		<attributes />
+	</entity>
+</entity-mappings>

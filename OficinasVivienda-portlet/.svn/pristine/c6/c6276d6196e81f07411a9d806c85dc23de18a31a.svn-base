@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="cat.diba.oficinasvivienda.service.MunicipioLocalService" class="cat.diba.oficinasvivienda.service.impl.MunicipioLocalServiceImpl" />
+	<bean id="cat.diba.oficinasvivienda.service.persistence.MunicipioPersistence" class="cat.diba.oficinasvivienda.service.persistence.MunicipioPersistenceImpl" parent="basePersistence" />
+	<bean id="cat.diba.oficinasvivienda.service.OficinaServicioMunicipioLocalService" class="cat.diba.oficinasvivienda.service.impl.OficinaServicioMunicipioLocalServiceImpl" />
+	<bean id="cat.diba.oficinasvivienda.service.persistence.OficinaServicioMunicipioPersistence" class="cat.diba.oficinasvivienda.service.persistence.OficinaServicioMunicipioPersistenceImpl" parent="basePersistence" />
+	<bean id="cat.diba.oficinasvivienda.service.ServicioLocalService" class="cat.diba.oficinasvivienda.service.impl.ServicioLocalServiceImpl" />
+	<bean id="cat.diba.oficinasvivienda.service.persistence.ServicioPersistence" class="cat.diba.oficinasvivienda.service.persistence.ServicioPersistenceImpl" parent="basePersistence" />
+	<bean id="cat.diba.oficinasvivienda.service.TipoLocalService" class="cat.diba.oficinasvivienda.service.impl.TipoLocalServiceImpl" />
+	<bean id="cat.diba.oficinasvivienda.service.persistence.TipoPersistence" class="cat.diba.oficinasvivienda.service.persistence.TipoPersistenceImpl" parent="basePersistence" />
+</beans>

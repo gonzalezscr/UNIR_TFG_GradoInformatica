@@ -1,0 +1,340 @@
+/**
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ *
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
+ *
+ *
+ *
+ */
+
+package cat.diba.oficinasvivienda.model;
+
+import cat.diba.oficinasvivienda.service.ClpSerializer;
+import cat.diba.oficinasvivienda.service.OficinaServicioMunicipioLocalServiceUtil;
+import cat.diba.oficinasvivienda.service.persistence.OficinaServicioMunicipioPK;
+
+import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.ProxyUtil;
+import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.model.BaseModel;
+import com.liferay.portal.model.impl.BaseModelImpl;
+
+import java.io.Serializable;
+
+import java.lang.reflect.Method;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author gonzalezscr
+ */
+public class OficinaServicioMunicipioClp extends BaseModelImpl<OficinaServicioMunicipio>
+	implements OficinaServicioMunicipio {
+	public OficinaServicioMunicipioClp() {
+	}
+
+	@Override
+	public Class<?> getModelClass() {
+		return OficinaServicioMunicipio.class;
+	}
+
+	@Override
+	public String getModelClassName() {
+		return OficinaServicioMunicipio.class.getName();
+	}
+
+	@Override
+	public OficinaServicioMunicipioPK getPrimaryKey() {
+		return new OficinaServicioMunicipioPK(_idOficina, _idServicio,
+			_codigoIne);
+	}
+
+	@Override
+	public void setPrimaryKey(OficinaServicioMunicipioPK primaryKey) {
+		setIdOficina(primaryKey.idOficina);
+		setIdServicio(primaryKey.idServicio);
+		setCodigoIne(primaryKey.codigoIne);
+	}
+
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return new OficinaServicioMunicipioPK(_idOficina, _idServicio,
+			_codigoIne);
+	}
+
+	@Override
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
+		setPrimaryKey((OficinaServicioMunicipioPK)primaryKeyObj);
+	}
+
+	@Override
+	public Map<String, Object> getModelAttributes() {
+		Map<String, Object> attributes = new HashMap<String, Object>();
+
+		attributes.put("idOficina", getIdOficina());
+		attributes.put("idServicio", getIdServicio());
+		attributes.put("codigoIne", getCodigoIne());
+
+		return attributes;
+	}
+
+	@Override
+	public void setModelAttributes(Map<String, Object> attributes) {
+		Long idOficina = (Long)attributes.get("idOficina");
+
+		if (idOficina != null) {
+			setIdOficina(idOficina);
+		}
+
+		Long idServicio = (Long)attributes.get("idServicio");
+
+		if (idServicio != null) {
+			setIdServicio(idServicio);
+		}
+
+		String codigoIne = (String)attributes.get("codigoIne");
+
+		if (codigoIne != null) {
+			setCodigoIne(codigoIne);
+		}
+	}
+
+	@Override
+	public long getIdOficina() {
+		return _idOficina;
+	}
+
+	@Override
+	public void setIdOficina(long idOficina) {
+		_idOficina = idOficina;
+
+		if (_oficinaServicioMunicipioRemoteModel != null) {
+			try {
+				Class<?> clazz = _oficinaServicioMunicipioRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setIdOficina", long.class);
+
+				method.invoke(_oficinaServicioMunicipioRemoteModel, idOficina);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public long getIdServicio() {
+		return _idServicio;
+	}
+
+	@Override
+	public void setIdServicio(long idServicio) {
+		_idServicio = idServicio;
+
+		if (_oficinaServicioMunicipioRemoteModel != null) {
+			try {
+				Class<?> clazz = _oficinaServicioMunicipioRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setIdServicio", long.class);
+
+				method.invoke(_oficinaServicioMunicipioRemoteModel, idServicio);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getCodigoIne() {
+		return _codigoIne;
+	}
+
+	@Override
+	public void setCodigoIne(String codigoIne) {
+		_codigoIne = codigoIne;
+
+		if (_oficinaServicioMunicipioRemoteModel != null) {
+			try {
+				Class<?> clazz = _oficinaServicioMunicipioRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCodigoIne", String.class);
+
+				method.invoke(_oficinaServicioMunicipioRemoteModel, codigoIne);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	public BaseModel<?> getOficinaServicioMunicipioRemoteModel() {
+		return _oficinaServicioMunicipioRemoteModel;
+	}
+
+	public void setOficinaServicioMunicipioRemoteModel(
+		BaseModel<?> oficinaServicioMunicipioRemoteModel) {
+		_oficinaServicioMunicipioRemoteModel = oficinaServicioMunicipioRemoteModel;
+	}
+
+	public Object invokeOnRemoteModel(String methodName,
+		Class<?>[] parameterTypes, Object[] parameterValues)
+		throws Exception {
+		Object[] remoteParameterValues = new Object[parameterValues.length];
+
+		for (int i = 0; i < parameterValues.length; i++) {
+			if (parameterValues[i] != null) {
+				remoteParameterValues[i] = ClpSerializer.translateInput(parameterValues[i]);
+			}
+		}
+
+		Class<?> remoteModelClass = _oficinaServicioMunicipioRemoteModel.getClass();
+
+		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
+
+		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
+
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (parameterTypes[i].isPrimitive()) {
+				remoteParameterTypes[i] = parameterTypes[i];
+			}
+			else {
+				String parameterTypeName = parameterTypes[i].getName();
+
+				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(parameterTypeName);
+			}
+		}
+
+		Method method = remoteModelClass.getMethod(methodName,
+				remoteParameterTypes);
+
+		Object returnValue = method.invoke(_oficinaServicioMunicipioRemoteModel,
+				remoteParameterValues);
+
+		if (returnValue != null) {
+			returnValue = ClpSerializer.translateOutput(returnValue);
+		}
+
+		return returnValue;
+	}
+
+	@Override
+	public void persist() throws SystemException {
+		if (this.isNew()) {
+			OficinaServicioMunicipioLocalServiceUtil.addOficinaServicioMunicipio(this);
+		}
+		else {
+			OficinaServicioMunicipioLocalServiceUtil.updateOficinaServicioMunicipio(this);
+		}
+	}
+
+	@Override
+	public OficinaServicioMunicipio toEscapedModel() {
+		return (OficinaServicioMunicipio)ProxyUtil.newProxyInstance(OficinaServicioMunicipio.class.getClassLoader(),
+			new Class[] { OficinaServicioMunicipio.class },
+			new AutoEscapeBeanHandler(this));
+	}
+
+	@Override
+	public Object clone() {
+		OficinaServicioMunicipioClp clone = new OficinaServicioMunicipioClp();
+
+		clone.setIdOficina(getIdOficina());
+		clone.setIdServicio(getIdServicio());
+		clone.setCodigoIne(getCodigoIne());
+
+		return clone;
+	}
+
+	@Override
+	public int compareTo(OficinaServicioMunicipio oficinaServicioMunicipio) {
+		OficinaServicioMunicipioPK primaryKey = oficinaServicioMunicipio.getPrimaryKey();
+
+		return getPrimaryKey().compareTo(primaryKey);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof OficinaServicioMunicipioClp)) {
+			return false;
+		}
+
+		OficinaServicioMunicipioClp oficinaServicioMunicipio = (OficinaServicioMunicipioClp)obj;
+
+		OficinaServicioMunicipioPK primaryKey = oficinaServicioMunicipio.getPrimaryKey();
+
+		if (getPrimaryKey().equals(primaryKey)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public Class<?> getClpSerializerClass() {
+		return _clpSerializerClass;
+	}
+
+	@Override
+	public int hashCode() {
+		return getPrimaryKey().hashCode();
+	}
+
+	@Override
+	public String toString() {
+		StringBundler sb = new StringBundler(7);
+
+		sb.append("{idOficina=");
+		sb.append(getIdOficina());
+		sb.append(", idServicio=");
+		sb.append(getIdServicio());
+		sb.append(", codigoIne=");
+		sb.append(getCodigoIne());
+		sb.append("}");
+
+		return sb.toString();
+	}
+
+	@Override
+	public String toXmlString() {
+		StringBundler sb = new StringBundler(13);
+
+		sb.append("<model><model-name>");
+		sb.append("cat.diba.oficinasvivienda.model.OficinaServicioMunicipio");
+		sb.append("</model-name>");
+
+		sb.append(
+			"<column><column-name>idOficina</column-name><column-value><![CDATA[");
+		sb.append(getIdOficina());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>idServicio</column-name><column-value><![CDATA[");
+		sb.append(getIdServicio());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>codigoIne</column-name><column-value><![CDATA[");
+		sb.append(getCodigoIne());
+		sb.append("]]></column-value></column>");
+
+		sb.append("</model>");
+
+		return sb.toString();
+	}
+
+	private long _idOficina;
+	private long _idServicio;
+	private String _codigoIne;
+	private BaseModel<?> _oficinaServicioMunicipioRemoteModel;
+	private Class<?> _clpSerializerClass = cat.diba.oficinasvivienda.service.ClpSerializer.class;
+}

@@ -1,0 +1,97 @@
+<%@ include file="/html/oficinasviviendaadministracion/init.jsp"%>
+<%
+	
+	
+	long idOficina = ParamUtil.getLong(request, Parametros.FIELD_IDOFICINA);
+	String nombreOficina = ParamUtil.getString(request, Parametros.FIELD_NOMBRE);
+	long idServicio = ParamUtil.getLong(request, Parametros.FIELD_IDSERVICIO);
+
+%>
+
+<liferay-portlet:renderURL var="cancelar">
+	<liferay-portlet:param name="mvcPath"
+		value="/html/oficinasviviendaadministracion/editarServicioMunicipio.jsp" />
+	<liferay-portlet:param name="<%=Parametros.FIELD_IDOFICINA %>"
+		value="<%= String.valueOf(idOficina) %>" />
+	<liferay-portlet:param name="<%=Parametros.FIELD_IDSERVICIO %>"
+		value="<%= String.valueOf(idServicio) %>" />
+	<liferay-portlet:param name="<%=Parametros.FIELD_NOMBRE %>"
+		value="<%=nombreOficina %>" />
+</liferay-portlet:renderURL>
+
+<portlet:actionURL name='guardarMunicipios' var="guardarMunicipiosURL" />
+
+<div class="taglib-header">
+	<h3 class="header-title"><%=nombreOficina%></h3>
+</div>
+<aui:form name="fm" action="<%=guardarMunicipiosURL.toString()%>"
+	method="post">
+	<aui:input name="<%=Parametros.FIELD_IDOFICINA%>" type="hidden"
+		value="<%=idOficina%>" />
+	<aui:input name="<%=Parametros.FIELD_IDSERVICIO%>" type="hidden"
+		value="<%=idServicio%>" />
+	<aui:input name="<%=Parametros.FIELD_NOMBRE%>" type="hidden"
+		value="<%=nombreOficina%>" />
+<%
+	List<Municipio> listaMunicipios = MunicipioLocalServiceUtil
+					.getMunicipios(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+	List<OficinaServicioMunicipio> listaServiciosSeleccionados = OficinaServicioMunicipioLocalServiceUtil
+					.obtenerMunicipiosPorOficinaServicio(idOficina, idServicio );
+
+	//Generació de llistes
+	List<KeyValuePair> municipiosLeftList = new ArrayList<KeyValuePair>();
+	List<KeyValuePair> municipiosRightList = new ArrayList<KeyValuePair>();
+	//Lista IdServicios seleccionados
+	List<String> listaIdMun = new ArrayList<String>();
+
+	for (OficinaServicioMunicipio osm : listaServiciosSeleccionados) {
+		if( !osm.getCodigoIne().equals("0") ){  //Servicio -> codigoIne = 0
+			Municipio mun = MunicipioLocalServiceUtil.getMunicipio(osm
+							.getCodigoIne());
+			municipiosLeftList.add(new KeyValuePair(String.valueOf(osm
+							.getCodigoIne()), HtmlUtil.escape(mun.getNombre())));
+			listaIdMun.add(osm.getCodigoIne());
+		}
+	}
+
+	for (Municipio mun : listaMunicipios) {
+		if (!listaIdMun.contains(mun.getCodigoIne())) {
+			municipiosRightList.add(new KeyValuePair(String
+							.valueOf(mun.getCodigoIne()), HtmlUtil
+							.escape(mun.getNombre())));
+		}
+	}
+	municipiosRightList = ListUtil.sort(municipiosRightList,
+					new KeyValuePairComparator(false, true));
+	%>
+	<aui:input name="<%=Parametros.FIELD_MUNICIPIOSID %>" type="hidden" />
+	<liferay-ui:input-move-boxes
+		leftTitle='<%=LanguageUtil.get(pageContext, "servicio-seleccionados")%>'
+		rightTitle='<%=LanguageUtil.get(pageContext, "servicio-disponibles")%>'
+		leftBoxName="<%=Parametros.FIELD_CURRENTMUNICIPIOSID %>"
+		rightBoxName="<%=Parametros.FIELD_AVAILABLEMUNICIPIOSID %>"
+		leftList="<%=municipiosLeftList%>" rightList="<%=municipiosRightList%>" />
+
+	<aui:button name="submit" type="submit" value="save"
+		onClick='<%=renderResponse.getNamespace() + "customSubmit();" %>' />
+	<aui:button href="<%=cancelar.toString()%>" type="cancel" />
+
+</aui:form>
+
+<aui:script>
+		Liferay.provide(
+				window,
+				'<portlet:namespace />customSubmit',
+				function() {
+				
+ 					if (document.<portlet:namespace />fm.<portlet:namespace /><%=Parametros.FIELD_MUNICIPIOSID %>) {
+ 						document.<portlet:namespace />fm.<portlet:namespace /><%=Parametros.FIELD_MUNICIPIOSID %>.value = Liferay.Util.listSelect(document.<portlet:namespace />fm.<portlet:namespace /><%=Parametros.FIELD_CURRENTMUNICIPIOSID %>);
+ 					}
+					submitForm(document.<portlet:namespace />fm);
+				},
+				['liferay-util-list-fields']
+			);
+	
+		
+	</aui:script>

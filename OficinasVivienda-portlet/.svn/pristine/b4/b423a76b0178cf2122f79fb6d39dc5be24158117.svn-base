@@ -1,0 +1,27 @@
+#Control Panel
+javax.portlet.title=Oficines Habitatge Administraciò
+javax.portlet.description=Manteniment Oficines d'Habitatge.
+
+
+oficina-listado=Llistat Oficines d'Habitatge
+oficina-no-resultados=No s'ha trobat cap Oficina
+
+servicio-mantenimiento=Manteniment Serveis
+servicio-listado=Llistat de Serveis
+servicio-no-resutlados=No s'ha trobat cap Servei
+servicio-nuevo=Nou Servei
+servicio-error-nombre-obligatori=El camp Nom és obligatori.
+servicio-eliminar=Segur que vol eliminar aquest Servei?
+
+tipo-mantenimiento=Manteniment Tipus Oficina
+tipo-no-resultados=No s'ha trobat cap Tipus d'Oficina
+tipo-listado=Llistat de Tipus d'Oficina
+tipo-nuevo=Nou Tipus d'Oficina
+tipo-eliminar=Segur que vol eliminar aquest Tipus d'Oficina?
+tipo-oficina=Tipus d'Oficina
+
+nom=Nom:
+id=ID:
+btn-Atras=Enrera
+
+

@@ -1,0 +1,69 @@
+<div id="servicioMunicipio">
+<%
+	
+	List <Servicio> listaServicios = ServicioLocalServiceUtil.
+		getServicios(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+	
+	List<OficinaServicioMunicipio> listaOSM = OficinaServicioMunicipioLocalServiceUtil
+		.obtenerRelacionPorOficina(idOficina);
+	
+	if ( listaOSM.size() == 0)
+	{
+%>
+
+
+	<div class="lfr-form-row lfr-form-row-inline">
+		<div class="row-fields">
+
+			<aui:select label="<%=LanguageUtil.get(pageContext, "servicio") %>" 
+				name="<%=Parametros.FIELD_ID%>" required="true"  
+				showEmptyOption='true'  >
+				<%
+						for (Servicio servicio : listaServicios) {
+					%>
+				<aui:option label="<%=servicio.getNombre(locale)%>"
+					value='<%=servicio.getIdServicio()%>'  />
+				<%
+						}
+					%>
+			</aui:select>
+		</div>
+		
+	</div>
+	
+	<%
+	}else{
+		
+	%>
+		
+		
+		
+		<div class="lfr-form-row lfr-form-row-inline">
+		<div class="row-fields">
+
+			<aui:select label="<%=LanguageUtil.get(pageContext, "servicio") %>" 
+				name="<%=Parametros.FIELD_ID%>" required="true"  
+				showEmptyOption='true'  >
+				<%
+						boolean selected;
+						for (Servicio servicio : listaServicios) {
+					%>
+				<aui:option label="<%=servicio.getNombre(locale)%>"
+					value='<%=servicio.getIdServicio()%>' selected="<%=selected%>"  />
+				<%
+						}
+					%>
+			</aui:select>
+		</div>
+		
+	</div>
+		
+	<%	
+	}
+	
+	%>
+
+</div>
+
+
+

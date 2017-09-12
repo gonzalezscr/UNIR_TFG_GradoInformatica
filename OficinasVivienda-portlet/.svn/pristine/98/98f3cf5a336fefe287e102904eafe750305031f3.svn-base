@@ -1,0 +1,73 @@
+package cat.diba.oficinasvivienda.web;
+
+import cat.diba.oficinasvivienda.model.Servicio;
+import cat.diba.oficinasvivienda.model.impl.ServicioImpl;
+import cat.diba.oficinasvivienda.service.ServicioLocalServiceUtil;
+import cat.diba.oficinasvivienda.util.OficinasViviendaUtil;
+import cat.diba.oficinasvivienda.util.Parametros;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.util.LocalizationUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.util.PortalUtil;
+import com.liferay.util.bridges.mvc.MVCPortlet;
+
+import java.util.Locale;
+import java.util.Map;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.ProcessAction;
+
+/**
+ * Portlet implementation class OficinasViviendaAdministracionPortlet
+ */
+public class OficinasViviendaAdministracionPortlet extends MVCPortlet {
+
+	private static Log LOG = LogFactoryUtil
+			.getLog(OficinasViviendaAdministracionPortlet.class);
+
+
+	@ProcessAction(name = "guardarServicio")
+	public void guardarServicio(ActionRequest req, ActionResponse resp)
+			throws Exception {
+		LOG.error("guardarServicio-INICI");
+
+		// Recuperar valors formulari
+		long idServicio = ParamUtil.getLong(req, Parametros.FIELD_ID, -1);
+		LOG.error("idServei=" + idServicio);
+
+		Map<Locale, String> nombre = LocalizationUtil.getLocalizationMap(req,
+				Parametros.FIELD_NOMBRE);
+		LOG.error("nom=" + nombre);
+		Servicio servicio = null;
+
+		if (!OficinasViviendaUtil.isMapFieldEmpty(nombre)) {
+			if (idServicio == -1) { // Nou servei
+				servicio = new ServicioImpl();
+				servicio.setNombreMap(nombre);
+
+				ServicioLocalServiceUtil.nuevoServicio(servicio);
+
+			} else { // Actualitzar servei
+				servicio = ServicioLocalServiceUtil.getServicio(idServicio);
+				servicio.setNombreMap(nombre);
+				
+				ServicioLocalServiceUtil.updateServicio(servicio);
+			}
+		}else{
+			SessionErrors.add(req, "servei-error-nom-obligatori");
+		}
+			
+		PortalUtil.copyRequestParameters(req, resp);
+		resp.setRenderParameter("mvcPath",
+				"/html/oficinasviviendaadministracion/listadoServicio.jsp");
+
+		LOG.error("guardarServicio-FI");
+
+	}
+
+
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="cat.diba.oficinasvivienda.model.Municipio">
+		<field name="codigoIne" type="String" />
+		<field name="nombre" type="String" />
+	</model>
+	<model name="cat.diba.oficinasvivienda.model.OficinaServicioMunicipio">
+		<field name="id" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="idOficina" type="long" />
+		<field name="idServicio" type="long" />
+		<field name="codigoIne" type="String" />
+	</model>
+	<model name="cat.diba.oficinasvivienda.model.OficinaTipo">
+		<field name="id" type="long" />
+		<field name="idOficina" type="long" />
+		<field name="idTipo" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+	</model>
+	<model name="cat.diba.oficinasvivienda.model.Servicio">
+		<field name="idServicio" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="nombre" type="String" localized="true" />
+		<field name="necesidad" type="String" localized="true">
+			<hint-collection name="TEXTAREA" />
+		</field>
+	</model>
+	<model name="cat.diba.oficinasvivienda.model.Tipo">
+		<field name="idTipo" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="nombre" type="String" localized="true" />
+	</model>
+</model-hints>

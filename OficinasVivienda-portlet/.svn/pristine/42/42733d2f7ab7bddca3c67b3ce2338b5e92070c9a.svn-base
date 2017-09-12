@@ -1,0 +1,82 @@
+<%@ include file="/html/oficinasviviendabuscador/init.jsp"%>
+
+<%
+	//Municipios
+	List<Municipio> listaMunicipios = MunicipioLocalServiceUtil
+							.getMunicipios(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+	String[] municipiosSel = (String[]) renderRequest
+	.getAttribute(Parametros.FIELD_MUNICIPIOSID);
+	
+	//Convertir a lista, para poder aplicar método .contains()
+	List<String> municipiosSeleccionados = new ArrayList<String>();
+	if (municipiosSel != null && municipiosSel.length > 0) {
+		municipiosSeleccionados = Arrays.asList(municipiosSel);
+	}
+	
+	
+	//Servicios
+	List<Servicio> listaServicios = ServicioLocalServiceUtil.obtenerServicios(	
+						PortalUtil.getCompanyId(request),
+						PortalUtil.getScopeGroupId(request),
+						QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+	
+	
+	List<OficinaServicioMunicipio> llistaOficinas= (List<OficinaServicioMunicipio>) request
+			.getAttribute(Parametros.FIELD_LISTAOFICINCAS);
+	if (llistaOficinas == null) {
+		llistaOficinas = new ArrayList<OficinaServicioMunicipio>();
+	}
+
+%>
+
+<portlet:actionURL name='buscarOficinas' var="buscarOficinasURL" />
+
+<form action="<%=buscarOficinasURL.toString()%>" method="post" class="formsubs"
+ 	name="formsubs">
+
+<div class="form-icon-box">
+
+        
+        <div class="form-icon-box-control">
+          <div class="form-group">
+          	<strong><label for="<%=Parametros.FIELD_MUNICIPIOSID%>">
+            	<%=LanguageUtil.get(pageContext, "osm-municipos")%></label></strong><br />
+				<select data-placeholder="<%=LanguageUtil.get(pageContext, "osm-municipos")%>"  
+						name="<%=Parametros.FIELD_MUNICIPIOSID%>" 
+						id="<%=Parametros.FIELD_MUNICIPIOSID%>"  
+						multiple class="col-xs-12 input-sm chosen-select">
+<% 						
+						for (Municipio mun : listaMunicipios) {
+							String selected="";
+							if(municipiosSeleccionados.contains(mun.getCodigoIne())){
+								selected ="selected";
+							}
+%>						
+						<option value="<%=mun.getCodigoIne()%>" <%=selected %>><%=mun.getNombre()%></option>
+<%
+						}
+%>						
+				</select>
+          </div>
+
+          
+        </div>
+
+      </div>
+      
+      <div class="form-group">
+				<div class="center-button">
+					<button type="submit" class="btn btn-default">
+						<i class="icon-ui-search"></i><%=LanguageUtil.get(pageContext, "search")%>
+					</button>
+				</div>
+			</div>
+
+ </form>
+      
+      <script type="text/javascript">
+	$(document).ready(function() {
+		$('.chosen-select').chosen({no_results_text: 'hola'});
+	});
+</script>

@@ -1,0 +1,16 @@
+#Control Panel
+javax.portlet.title=Oficinas Vivienda Buscador
+javax.portlet.description=Buscador Oficinas de Vivienda.
+
+
+osm-municipos=Municipios
+servicio-buscador=Servicios
+tipo-oficina=Tipos de Oficina
+oficina-no-resultados=No se ha encontrado ninguna Oficina
+
+shield-escudo=escudo del municipio
+shield-telefono=Teléfono
+shield-mail=Correo electrónico
+shield-enlace=Enlace a la web del municipio
+shield-web=Web del municipio
+

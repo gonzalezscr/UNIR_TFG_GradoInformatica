@@ -1,0 +1,16 @@
+
+<liferay-ui:icon-menu>
+		<portlet:renderURL var="editURL">
+			<portlet:param name="mvcPath" value="/html/oficinasviviendaadministracion/editarOficina.jsp" />
+			<portlet:param name="<%=Parametros.FIELD_IDOFICINA %>" value="<%= String.valueOf(oficina.getArticleId()) %>" />
+			<portlet:param name="<%=Parametros.FIELD_NOMBRE %>" value="<%= String.valueOf(oficina.getTitle(locale)) %>" />
+		</portlet:renderURL>
+		<liferay-ui:icon image="edit" message='<%=LanguageUtil.get(pageContext, "oficina-asignarTipoServicio")%>' url="<%= editURL %>"	/>
+		
+		<portlet:renderURL var="editURL">
+			<portlet:param name="mvcPath" value="/html/oficinasviviendaadministracion/editarOficina.jsp" />
+			<portlet:param name="<%=Parametros.FIELD_IDOFICINA %>" value="<%= String.valueOf(oficina.getArticleId()) %>" />
+			<portlet:param name="<%=Parametros.FIELD_NOMBRE %>" value="<%= String.valueOf(oficina.getTitle(locale)) %>" />
+		</portlet:renderURL>
+		<liferay-ui:icon image="edit" message='<%=LanguageUtil.get(pageContext, "oficina-asignarMunicipioServicio")%>' url="<%= editURL %>"	/>
+</liferay-ui:icon-menu>

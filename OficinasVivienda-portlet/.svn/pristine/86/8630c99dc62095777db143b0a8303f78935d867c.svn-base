@@ -1,0 +1,37 @@
+<%@ include file="/html/oficinasviviendaadministracion/init.jsp"%>
+
+<%
+	Servicio servicio = null;
+
+	long servicioId = ParamUtil.getLong(request, Parametros.FIELD_ID);
+
+	if (servicioId > 0) {
+		servicio = ServicioLocalServiceUtil.getServicio(servicioId);
+	}
+%>
+
+<liferay-portlet:renderURL var="cancelar" >
+	<liferay-portlet:param name="mvcPath" value="/html/oficinasviviendaadministracion/listadoServicio.jsp" />
+</liferay-portlet:renderURL>
+
+<portlet:actionURL name='guardarServicio' var="guardarServicioURL" />
+
+<h2><%=(servicio != null) ? servicio.getNombre(locale) : LanguageUtil.get(pageContext, "servicio-nuevo")%></h2>
+<aui:form name="fm" action="<%=guardarServicioURL.toString()%>"
+	method="post">
+	<aui:model-context bean="<%=servicio%>" model="<%=Servicio.class%>" />
+	<aui:input name="<%=Parametros.FIELD_ID%>" type="hidden" />
+	
+	<% if (servicio != null){ %>
+	<label class="control-label" ><%=LanguageUtil.get(pageContext, "id") + servicio.getIdServicio()%></label>
+	<%}%>
+	<aui:input name="<%=Parametros.FIELD_NOMBRE%>" label="nom">
+		<aui:validator name="required" />
+	</aui:input>
+	
+	<aui:button name="submit" type="submit" value="save" />
+	<aui:button href="<%=cancelar.toString()%>" type="cancel" />
+</aui:form>
+
+
+

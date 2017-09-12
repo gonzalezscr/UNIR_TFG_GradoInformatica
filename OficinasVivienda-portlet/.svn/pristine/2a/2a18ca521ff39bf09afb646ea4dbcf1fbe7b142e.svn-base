@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
+	
+	<portlet>
+		<portlet-name>oficinas-vivienda-administracion</portlet-name>
+		<display-name>Oficinas Vivienda Administracion</display-name>
+		<portlet-class>
+			cat.diba.oficinasvivienda.web.OficinasViviendaAdministracionPortlet
+		</portlet-class>
+		<init-param>
+			<name>view-template</name>
+			<value>/html/oficinasviviendaadministracion/view.jsp</value>
+		</init-param>
+		<init-param>
+      		<name>config-template</name>
+      		<value>/html/oficinasviviendaadministracion/configuracion.jsp</value>
+    	</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>view</portlet-mode>
+		</supports>
+		<resource-bundle>content.Language</resource-bundle> 
+		<portlet-info>
+			<title>Oficinas Vivienda Administracion</title>
+			<short-title>Oficinas Vivienda Administracion</short-title>
+			<keywords></keywords>
+		</portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+	<portlet>
+		<portlet-name>oficinas-vivienda-buscador</portlet-name>
+		<display-name>Oficinas Vivienda Buscador</display-name>
+		<portlet-class>
+			cat.diba.oficinasvivienda.web.OficinasViviendaBuscadorPortlet
+		</portlet-class>
+		<init-param>
+			<name>view-template</name>
+			<value>/html/oficinasviviendabuscador/view.jsp</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>view</portlet-mode>
+		</supports>
+		<resource-bundle>content.LanguageBuscador</resource-bundle> 
+		<portlet-info>
+			<title>Oficinas Vivienda Buscador</title>
+			<short-title>Oficinas Vivienda Buscador</short-title>
+			<keywords></keywords>
+		</portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+		<supported-public-render-parameter>municipalityIne</supported-public-render-parameter>		
+	</portlet>
+	
+	<public-render-parameter>
+		<identifier>municipalityIne</identifier>
+		<qname xmlns:x="http://diba.cat/municipalitiesdirectory/events">x:municipalityIne</qname>
+	</public-render-parameter>
+</portlet-app>

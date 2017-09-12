@@ -1,0 +1,62 @@
+#Control Panel
+javax.portlet.title=Oficines Habitatge Administració
+javax.portlet.description=Manteniment Oficines d'Habitatge.
+
+##Oficina
+oficina-listado=Llistat Oficines d'Habitatge
+oficina-no-resultados=No s'ha trobat cap Oficina
+oficina-asignarTipoServicio= Asignar Tipus Oficina/Serveis
+oficina-asignarMunicipioServicio= Asignar Municipis per Servei
+oficina-enviarMailing=Enviar mail d'Actualització
+
+
+##Servicio
+servicio-mantenimiento=Manteniment de Serveis
+servicio-listado=Llistat de Serveis
+servicio-no-resultados=No s'ha trobat cap Servei
+servicio-nuevo=Nou Servei
+servicio-error-nombre-obligatori=El camp Nom és obligatori.
+servicio-eliminar=Segur que vol eliminar aquest Servei?
+servicio=Servei
+servicio-seleccionados=Serveis Seleccionats
+servicio-disponibles=Serveis Disponibles
+servicio-necesidad=Necesitat
+servicio-buscador=Serveis
+
+##Tipos
+tipo-mantenimiento=Manteniment de Tipus Oficina
+tipo-no-resultados=No s'ha trobat cap Tipus d'Oficina
+tipo-listado=Llistat de Tipus d'Oficina
+tipo-nuevo=Nou Tipus d'Oficina
+tipo-eliminar=Segur que vol eliminar aquest Tipus d'Oficina?
+tipo-oficina=Tipus d'Oficina
+
+#OficinaServicioMunicipio
+osm-listado-servicios-municipios=Llistat de Serveis i Municipis
+osm-municipos=Municipis
+osm-no-resultados=No s'ha trobat cap Servei relacionat
+osm-seleccion-municipios=Selecció de Municipis
+osm-seleccionados=Municipis Seleccionats
+osm-disponibles=Municipis Disponibles
+osm-seleccion=Selecciona
+osm-seleccionTodos=Seleccionar Municipis per tots els serveis
+osm-todos=Tots els serveis
+
+##General
+nom=Nom:
+id=ID:
+btn-Atras=Enrera
+identificador=ID
+
+##Mail
+mail-titulo=Actualització de les dades de l'%s
+mail-oficina=Oficina
+mail-entidad=Entitat
+mail-direccion=Adreça
+mail-telefono=Telèfon
+mail-web=Web
+mail-horario=Horari
+mail-tipo=Tipus
+mail-servicio=Catàleg de serveis de l'oficina
+mail-boton=Enviament de mails a les Oficines per l'actualització de les dades.\\nVol continuar?
+

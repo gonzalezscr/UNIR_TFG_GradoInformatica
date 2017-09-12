@@ -1,0 +1,15 @@
+create index IX_7DCEEB4C on OficinaServicioMunicipio (companyId, groupId, idOficina);
+create index IX_DD6DD9AB on OficinaServicioMunicipio (companyId, groupId, idOficina, codigoIne);
+create index IX_2DACC291 on OficinaServicioMunicipio (companyId, groupId, idOficina, idServicio);
+create index IX_C5A7299 on OficinaServicioMunicipio (companyId, groupId, idServicio);
+create index IX_8FECF10E on OficinaServicioMunicipio (idOficina);
+create index IX_396A06A9 on OficinaServicioMunicipio (idOficina, codigoIne);
+create index IX_51363553 on OficinaServicioMunicipio (idOficina, idServicio);
+create index IX_3DFD2517 on OficinaServicioMunicipio (idServicio);
+
+create index IX_80A5733B on OficinaTipo (idOficina);
+create index IX_75B5C68 on OficinaTipo (idTipo);
+
+create index IX_BEA1BABE on Servicio (companyId, groupId);
+
+create index IX_6806D29C on Tipo (companyId, groupId);

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
+<service-builder package-path="cat.diba.oficinasvivienda">
+	<author>gonzalezscr</author>
+	<namespace>OficinasVivienda</namespace>
+
+	<entity name="Servicio" table="Servicio" local-service="true" remote-service="false"
+		cache-enabled="false">
+		<!-- PK fields -->
+		<column name="idServicio" type="long" primary="true" />
+
+		<!-- Other fields -->
+		<column name="nombre" type="String"  localized="true"/>
+	</entity>
+	
+	<entity name="Tipo" table="Tipo" local-service="true" remote-service="false"
+		cache-enabled="false">
+		<!-- PK fields -->
+		<column name="idTipo" type="long" primary="true" />
+
+		<!-- Other fields -->
+		<column name="nombre" type="String"  localized="true"/>
+	</entity>
+	
+	<entity name="Municipio" table="Municipio" local-service="true" remote-service="false">
+		<!-- PK fields -->
+		<column name="codigoIne" type="String" primary="true" />
+
+		<!-- Other fields -->
+		<column name="nombre" type="String"/>
+		
+	</entity>
+	
+	<entity name="OficinaServicioMunicipio" table="OficinaServicioMunicipio" local-service="true" remote-service="false">
+		<!-- PK fields -->
+		<column name="id" type="long" primary="true" />
+		<column name="idOficina" type="long"  />
+		<column name="idServicio" type="long"  />
+		<column name="codigoIne" type="String"  />
+		
+		<!-- Finder methods -->
+		<finder name="OficinaServicioMunicipio" return-type="OficinaServicioMunicipio">
+			<finder-column name="idOficina" />
+		</finder>
+	</entity>
+	
+	<entity name="OficinaTipo" table="OficinaTipo" local-service="true" remote-service="false">
+		<!-- PK fields -->
+		<column name="id" type="long" primary="true" />
+		<column name="idOficina" type="long"  />
+		<column name="idTipo" type="long" />
+		
+		<!-- Finder methods -->
+		<finder name="OficinaTipo" return-type="OficinaTipo">
+			<finder-column name="idOficina" />
+		</finder>
+	</entity>
+</service-builder>

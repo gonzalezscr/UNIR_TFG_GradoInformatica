@@ -1,0 +1,62 @@
+##Control Panel
+javax.portlet.title=Oficinas Vivienda Administración 
+javax.portlet.description=Mantenimiento Oficinas Vivienda
+
+##Oficina
+oficina-listado=Listado Oficinas de Vivienda
+oficina-no-resultados=No se ha encontrado ninguna Oficina
+oficina-asignarTipoServicio= Asignar Tipo Oficina/Servicios
+oficina-asignarMunicipioServicio= Asignar Municipios por Servicio
+oficina-enviarMailing=Enviar mail de Actualitzación
+
+
+##Servicio
+servicio-mantenimiento=Mantenimento de Servicios
+servicio-listado=Listado de Servicios
+servicio-no-resultados=No se ha enconctrado ningún Servicio
+servicio-nuevo=Nuevo Servicio
+servicio-error-nombre-obligatori=El camp Nombre és obligatorio.
+servicio-eliminar=Seguro que quiere eliminar este Servicio?
+servicio=Servicio
+servicio-seleccionados=Servicios Seleccionados
+servicio-disponibles=Servicios Disponibles
+servicio-necesidad=Necesidad
+servicio-buscador=Servicios
+
+##Tipos
+tipo-mantenimiento=Mantenimento de Tipo Oficina
+tipo-no-resultados=No se ha encontrado ningún Tipo de Oficina
+tipo-listado=Listado de Tipos de Oficina
+tipo-nuevo=Nuevo Tipo de Oficina
+tipo-eliminar=Seguro que quieres eliminar este Tipo de Oficina?
+tipo-oficina=Tipo de Oficina
+
+##OficinaServicioMunicipio
+osm-listado-servicios-municipios=Listado de Servicios y Municipios
+osm-municipos=Municipios
+osm-no-resultados=No se ha encontrado ningún Servicio relacionado
+osm-seleccion-municipios=Selección de Municipios
+osm-seleccionados=Municipios Seleccionados
+osm-disponibles=Municipios Disponibles
+osm-seleccion=Seleccionar
+osm-seleccionTodos=Seleccionar Municipios para todos los servicios
+osm-todos=Todos los servicios
+
+##General
+nom=Nombre:
+id=ID:
+btn-Atras=Atrás
+identificador=ID
+
+##Mail
+mail-titulo=Actualitzación de los datos de la %s
+mail-oficina=Oficina
+mail-entidad=Entidad
+mail-direccion=Dirección
+mail-telefono=Telefono
+mail-web=Web
+mail-horario=Horario
+mail-tipo=Tipo
+mail-servicio=Catálogo de servicios de la oficina
+mail-boton=Envio de mails a las Oficinas para la actualización de sus datos.\\nQuiere continuar?
+

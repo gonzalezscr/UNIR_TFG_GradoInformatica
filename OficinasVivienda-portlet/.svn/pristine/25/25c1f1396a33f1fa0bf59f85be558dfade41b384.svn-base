@@ -1,0 +1,12 @@
+#Control Panel
+javax.portlet.title=Oficines Habitatge Cercador
+javax.portlet.description=Cercador Oficines d'Habitatge.
+
+
+osm-municipos=Municipis
+servicio-buscador=Serveis
+tipo-oficina=Tipus d'Oficina
+
+
+
+

@@ -1,0 +1,269 @@
+package cat.diba.oficinasvivienda.web;
+
+import cat.diba.oficinasvivienda.model.OficinaServicioMunicipio;
+import cat.diba.oficinasvivienda.model.OficinaTipo;
+import cat.diba.oficinasvivienda.model.Servicio;
+import cat.diba.oficinasvivienda.model.Tipo;
+import cat.diba.oficinasvivienda.model.impl.OficinaServicioMunicipioImpl;
+import cat.diba.oficinasvivienda.model.impl.OficinaTipoImpl;
+import cat.diba.oficinasvivienda.model.impl.ServicioImpl;
+import cat.diba.oficinasvivienda.model.impl.TipoImpl;
+import cat.diba.oficinasvivienda.service.OficinaServicioMunicipioLocalServiceUtil;
+import cat.diba.oficinasvivienda.service.OficinaTipoLocalServiceUtil;
+import cat.diba.oficinasvivienda.service.ServicioLocalServiceUtil;
+import cat.diba.oficinasvivienda.service.TipoLocalServiceUtil;
+import cat.diba.oficinasvivienda.util.OficinasViviendaUtil;
+import cat.diba.oficinasvivienda.util.Parametros;
+
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.util.LocalizationUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.util.PortalUtil;
+import com.liferay.util.bridges.mvc.MVCPortlet;
+
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.ProcessAction;
+
+/**
+ * Portlet implementation class OficinasViviendaAdministracionPortlet
+ */
+public class OficinasViviendaAdministracionPortlet extends MVCPortlet {
+
+	private static Log LOG = LogFactoryUtil
+			.getLog(OficinasViviendaAdministracionPortlet.class);
+
+	@ProcessAction(name = "guardarServicio")
+	public void guardarServicio(ActionRequest req, ActionResponse resp)
+			throws Exception {
+		LOG.error("guardarServicio-INICI");
+
+		// Recuperar valors formulari
+		long idServicio = ParamUtil.getLong(req, Parametros.FIELD_IDSERVICIO,
+				-1);
+		LOG.error("idServei=" + idServicio);
+
+		Map<Locale, String> nombre = LocalizationUtil.getLocalizationMap(req,
+				Parametros.FIELD_NOMBRE);
+		LOG.error("nom=" + nombre);
+		Servicio servicio = null;
+
+		if (!OficinasViviendaUtil.isMapFieldEmpty(nombre)) {
+			if (idServicio == -1) { // Nou servei
+				servicio = new ServicioImpl();
+				servicio.setNombreMap(nombre);
+
+				ServicioLocalServiceUtil.nuevoServicio(servicio);
+
+			} else { // Actualitzar servei
+				servicio = ServicioLocalServiceUtil.getServicio(idServicio);
+				servicio.setNombreMap(nombre);
+
+				ServicioLocalServiceUtil.updateServicio(servicio);
+			}
+		} else {
+			SessionErrors.add(req, "servei-error-nom-obligatori");
+		}
+
+		PortalUtil.copyRequestParameters(req, resp);
+		resp.setRenderParameter("mvcPath",
+				"/html/oficinasviviendaadministracion/listadoServicio.jsp");
+
+		LOG.error("guardarServicio-FI");
+
+	}
+
+	@ProcessAction(name = "eliminarServicio")
+	public void eliminarServicio(ActionRequest req, ActionResponse resp)
+			throws Exception {
+		LOG.error("eliminarServicio-Inici");
+
+		long idServicio = ParamUtil.getLong(req, Parametros.FIELD_IDSERVICIO,
+				-1);
+
+		if (idServicio != -1) {
+			ServicioLocalServiceUtil.deleteServicio(idServicio);
+		}
+
+		PortalUtil.copyRequestParameters(req, resp);
+		resp.setRenderParameter("mvcPath",
+				"/html/oficinasviviendaadministracion/listadoServicio.jsp");
+
+		LOG.error("eliminarServicio-FI");
+
+	}
+
+	@ProcessAction(name = "guardarTipo")
+	public void guardarTipo(ActionRequest req, ActionResponse resp)
+			throws Exception {
+		LOG.error("guardarTipo-INICI");
+
+		// Recuperar valors formulari
+		long idTipo = ParamUtil.getLong(req, Parametros.FIELD_IDTIPO, -1);
+		LOG.error("Tipo=" + idTipo);
+
+		Map<Locale, String> nombre = LocalizationUtil.getLocalizationMap(req,
+				Parametros.FIELD_NOMBRE);
+		LOG.error("nom=" + nombre);
+		Tipo tipo = null;
+
+		if (!OficinasViviendaUtil.isMapFieldEmpty(nombre)) {
+			if (idTipo == -1) { // Nou servei
+				tipo = new TipoImpl();
+				tipo.setNombreMap(nombre);
+
+				TipoLocalServiceUtil.nuevoTipo(tipo);
+
+			} else { // Actualitzar servei
+				tipo = TipoLocalServiceUtil.getTipo(idTipo);
+				tipo.setNombreMap(nombre);
+
+				TipoLocalServiceUtil.updateTipo(tipo);
+			}
+		} else {
+			SessionErrors.add(req, "tipo-error-nom-obligatori");
+		}
+
+		PortalUtil.copyRequestParameters(req, resp);
+		resp.setRenderParameter("mvcPath",
+				"/html/oficinasviviendaadministracion/listadoTipo.jsp");
+
+		LOG.error("guardarTipo-FI");
+
+	}
+
+	@ProcessAction(name = "eliminarTipo")
+	public void eliminarTipo(ActionRequest req, ActionResponse resp)
+			throws Exception {
+		LOG.error("eliminarTipo-Inici");
+
+		long idTipo = ParamUtil.getLong(req, Parametros.FIELD_IDTIPO, -1);
+
+		if (idTipo != -1) {
+			TipoLocalServiceUtil.deleteTipo(idTipo);
+		}
+
+		PortalUtil.copyRequestParameters(req, resp);
+		resp.setRenderParameter("mvcPath",
+				"/html/oficinasviviendaadministracion/listadoTipo.jsp");
+
+		LOG.error("eliminarTipo-FI");
+
+	}
+
+	@ProcessAction(name = "guardarOficina")
+	public void guardarOficina(ActionRequest req, ActionResponse resp)
+			throws Exception {
+		LOG.error("guardarOficina-INICI");
+
+		// Asignar Tipo Oficina asociado
+		long idOficina = ParamUtil.getLong(req, Parametros.FIELD_IDOFICINA, -1);
+		long idTipo = ParamUtil.getLong(req, Parametros.FIELD_IDTIPO, -1);
+
+		OficinaTipo ofiTipo = OficinaTipoLocalServiceUtil
+				.obtenerOficinaTipoPorOficina(idOficina);
+
+		if (ofiTipo == null) {
+			ofiTipo = new OficinaTipoImpl();
+			ofiTipo.setIdOficina(idOficina);
+			ofiTipo.setIdTipo(idTipo);
+
+			OficinaTipoLocalServiceUtil.nuevaOficinaTipo(ofiTipo);
+		} else {
+			ofiTipo.setIdTipo(idTipo);
+			OficinaTipoLocalServiceUtil.updateOficinaTipo(ofiTipo);
+		}
+
+		// Eliminar Servicios anteriores
+		List<OficinaServicioMunicipio> listaServiciosAnteriores = OficinaServicioMunicipioLocalServiceUtil
+				.obtenerServiciosPorOficina(idOficina, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		if (listaServiciosAnteriores.size() > 0) {
+
+			LOG.error("elementos anteriores:" + listaServiciosAnteriores.size());
+
+			for (OficinaServicioMunicipio osm : listaServiciosAnteriores) {
+				OficinaServicioMunicipioLocalServiceUtil
+						.deleteOficinaServicioMunicipio(osm);
+			}
+		}
+
+		// Asignar Servicios
+		String serviciosIds = ParamUtil.getString(req,
+				Parametros.FIELD_SERVICIOSID, StringPool.BLANK);
+		LOG.error("serviciosIds:" + serviciosIds);
+
+		if (!serviciosIds.isEmpty()) {
+			String[] listaServicios = serviciosIds.split(",");
+			LOG.error("listaServicios.length:" + listaServicios.length);
+
+			for (int i = 0; i < listaServicios.length; i++) {
+				long idServicio = Long.parseLong(listaServicios[i]);
+				LOG.error("idServicio:" + idServicio);
+				OficinaServicioMunicipio osm = new OficinaServicioMunicipioImpl();
+				osm.setIdOficina(idOficina);
+				osm.setIdServicio(idServicio);
+				osm.setCodigoIne("0");
+				OficinaServicioMunicipioLocalServiceUtil.nuevaOficinaSM(osm);
+			}
+		}
+
+	}
+
+	@ProcessAction(name = "guardarServicio")
+	public void guardarMunicipios(ActionRequest req, ActionResponse resp)
+			throws Exception {
+		LOG.error("guardarMunicipios-INICI");
+
+		// Recuperar valors formulari
+		long idOficina = ParamUtil.getLong(req, Parametros.FIELD_IDOFICINA, -1);
+		long idServicio = ParamUtil.getLong(req, Parametros.FIELD_IDSERVICIO, -1);
+		
+		// Eliminar Municipios anteriores
+		List<OficinaServicioMunicipio> listaMunicipioAnteriores = OficinaServicioMunicipioLocalServiceUtil
+				.obtenerMunicipiosPorOficinaServicio(idOficina, idServicio );
+		if (listaMunicipioAnteriores.size() > 0) {
+
+			LOG.error("elementos anteriores:" + listaMunicipioAnteriores.size());
+
+			for (OficinaServicioMunicipio osm : listaMunicipioAnteriores) {
+				if( !osm.getCodigoIne().equals("0") ){  //Servicio -> codigoIne = 0
+					OficinaServicioMunicipioLocalServiceUtil
+							.deleteOficinaServicioMunicipio(osm);
+				}
+			}
+		}
+
+		// Asignar Municipios
+		String municipiosIds = ParamUtil.getString(req,
+				Parametros.FIELD_MUNICIPIOSID, StringPool.BLANK);
+		LOG.error("serviciosIds:" + municipiosIds);
+
+		if (!municipiosIds.isEmpty()) {
+			String[] listaMunicipios = municipiosIds.split(",");
+			LOG.error("listaMunicipios.length:" + listaMunicipios.length);
+
+			for (int i = 0; i < listaMunicipios.length; i++) {
+				OficinaServicioMunicipio osm = new OficinaServicioMunicipioImpl();
+				osm.setIdOficina(idOficina);
+				osm.setIdServicio(idServicio);
+				osm.setCodigoIne(listaMunicipios[i]);
+				OficinaServicioMunicipioLocalServiceUtil.nuevaOficinaSM(osm);
+			}
+		}
+		
+		PortalUtil.copyRequestParameters(req, resp);
+		resp.setRenderParameter("mvcPath",
+				"/html/oficinasviviendaadministracion/editarServicioMunicipio.jsp");
+		LOG.error("guardarMunicipios-FI");
+
+	}
+
+}

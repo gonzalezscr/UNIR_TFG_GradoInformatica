@@ -1,0 +1,130 @@
+<%@ include file="/html/oficinasviviendaadministracion/init.jsp"%>
+<%
+	
+	
+	long idOficina = ParamUtil.getLong(request, Parametros.FIELD_IDOFICINA);
+	String nombreOficina = ParamUtil.getString(request, Parametros.FIELD_NOMBRE);
+	
+%>
+<h2></h2>
+<div class="taglib-header">
+	<h3 class="header-title"><%=nombreOficina%> - <%=LanguageUtil.get(pageContext, "osm-listado-servicios-municipios")%></h3>
+</div>
+
+<!--  ACCIONES -->
+<liferay-portlet:renderURL var="cancelar" >
+	<liferay-portlet:param name="mvcPath" value="/html/oficinasviviendaadministracion/view.jsp" />
+</liferay-portlet:renderURL>
+
+<portlet:renderURL var="popupCopiar"
+	windowState="<%=LiferayWindowState.POP_UP.toString()%>">
+	<portlet:param name="mvcPath"
+		value="/html/oficinasviviendaadministracion/seleccionMunicipios.jsp" />
+	<portlet:param name="<%=Parametros.FIELD_IDOFICINA%>"
+		value="<%=String.valueOf(idOficina)%>" />
+	<portlet:param name="<%=Parametros.FIELD_NOMBRE%>"
+		value="<%=HtmlUtil.escapeJS(nombreOficina)%>" />
+	
+</portlet:renderURL>
+<%
+	String urlPopupCopiar = "javascript:showPopup('" + popupCopiar + "')";
+%>
+
+<div>
+	<a class="btn btn-cancel" href="<%=cancelar%>"><%=LanguageUtil.get(pageContext, "btn-Atras")%></a>
+	<a class="btn" href="<%=urlPopupCopiar%>"><%=LanguageUtil.get(pageContext, "osm-seleccionTodos")%></a>
+</div>
+
+<liferay-portlet:renderURL varImpl="paginationURL" >
+	<liferay-portlet:param name="mvcPath"
+		value="/html/oficinasviviendaadministracion/editarServicioMunicipio.jsp" />
+	<liferay-portlet:param name="<%=Parametros.FIELD_IDOFICINA %>" value="<%= String.valueOf(idOficina) %>" />
+</liferay-portlet:renderURL>
+
+<liferay-ui:search-container iteratorURL="<%=paginationURL%>"
+	deltaConfigurable="true" delta="<%=Parametros.DELTA_GENERAL%>" 
+	emptyResultsMessage="osm-no-resultados"	>
+
+	<liferay-ui:search-container-results
+		results="<%=OficinaServicioMunicipioLocalServiceUtil
+				.obtenerServiciosPorOficina(PortalUtil.getCompanyId(request),
+						PortalUtil.getScopeGroupId(request),idOficina, 
+						searchContainer.getStart(), searchContainer.getEnd())%>"
+		 total="<%=OficinaServicioMunicipioLocalServiceUtil.obtenerServiciosPorOficinaTotal(
+				 PortalUtil.getCompanyId(request),
+					PortalUtil.getScopeGroupId(request),idOficina)%>"
+		 />
+	<liferay-ui:search-container-row
+		className="cat.diba.oficinasvivienda.model.OficinaServicioMunicipio"
+		keyProperty="idServicio" modelVar="servicio">
+		<% String nombreServicio = ServicioLocalServiceUtil.getServicio(servicio.getIdServicio()).getNombre(locale);%>
+		<liferay-ui:search-container-column-text name='<%=LanguageUtil.get(pageContext, "servicio")%>'>
+			<%= nombreServicio%>
+		</liferay-ui:search-container-column-text>
+		<liferay-ui:search-container-column-text name='<%=LanguageUtil.get(pageContext, "osm-municipos")%>'>
+			<%= OficinasViviendaUtil.obtenerMunicipiosTexto(PortalUtil.getCompanyId(request),
+					PortalUtil.getScopeGroupId(request),idOficina, servicio.getIdServicio())%>
+		</liferay-ui:search-container-column-text>
+		<portlet:renderURL var="popup" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+		      <portlet:param name="jspPage" value="/html/oficinasviviendaadministracion/seleccionMunicipios.jsp"/>
+		      <portlet:param name="<%=Parametros.FIELD_IDOFICINA %>" value="<%= String.valueOf(servicio.getIdOficina()) %>" />
+			  <portlet:param name="<%=Parametros.FIELD_IDSERVICIO %>" value="<%= String.valueOf(servicio.getIdServicio()) %>" />
+			  <portlet:param name="<%=Parametros.FIELD_NOMBRE %>" value="<%= HtmlUtil.escapeJS(nombreOficina) %>" />
+			  <portlet:param name="<%=Parametros.FIELD_NOMBRESERVICIO %>" value="<%= HtmlUtil.escapeJS(nombreServicio) %>" />
+		</portlet:renderURL>
+		<% String urlPopup = "javascript:showPopup('"+ popup+"')"; %>
+		<liferay-ui:search-container-column-text href="<%=HtmlUtil.escape(urlPopup)%>" ><%=LanguageUtil.get(pageContext, "osm-seleccion")%>
+		</liferay-ui:search-container-column-text>
+		
+	</liferay-ui:search-container-row>
+	<liferay-ui:search-iterator searchContainer="<%=searchContainer%>"
+		paginate="<%=true%>" />
+</liferay-ui:search-container>
+
+
+<aui:script>
+function showPopup(url)
+{
+    Liferay.Util.openWindow(
+            {
+                dialog: {
+                    cache: false,
+                    width:800,
+                    height: 480,
+                    destroyOnClose: true,
+                    centered: true,                 
+                    resizable: false,
+                    
+                    modal: true
+                },
+                title: '<%=LanguageUtil.get(pageContext, "osm-seleccion-municipios")%>',
+                id: '<portlet:namespace/>popUpDialog',             
+                uri: url
+            }
+            
+     
+    );   
+    
+    Liferay.provide(
+            window,
+            '<portlet:namespace/>closePopup',
+            function(popupIdToClose) {
+             var popupDialog = Liferay.Util.Window.getById(popupIdToClose);
+             popupDialog.destroy();
+             location.reload();
+            }, 
+            ['liferay-util-window']
+      );
+    
+}
+</aui:script>
+
+
+
+
+
+
+
+
+
+

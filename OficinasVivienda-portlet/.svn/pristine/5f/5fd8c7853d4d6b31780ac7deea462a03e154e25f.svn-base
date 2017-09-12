@@ -1,0 +1,109 @@
+package cat.diba.oficinasvivienda.util;
+
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.LocalizationUtil;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portlet.asset.model.AssetEntry;
+import com.liferay.portlet.asset.service.AssetEntryLocalServiceUtil;
+import com.liferay.portlet.asset.service.persistence.AssetEntryQuery;
+import com.liferay.portlet.dynamicdatamapping.model.DDMStructure;
+import com.liferay.portlet.dynamicdatamapping.service.DDMStructureLocalServiceUtil;
+import com.liferay.portlet.journal.model.JournalArticle;
+import com.liferay.portlet.journal.service.JournalArticleLocalServiceUtil;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+public class OficinasViviendaUtil {
+
+	private static Log LOG = LogFactoryUtil.getLog(OficinasViviendaUtil.class);
+
+	public static final String ddmStructureName = "OFICINA_HABITATGE";
+	public static final String ddmTemplateName = "OFICINA_HABITATGE";
+	public static final String nameStructureTemplate = "<?xml version='1.0' encoding='UTF-8'?><root available-locales=\"ca_ES\" default-locale=\"ca_ES\"><Name language-id=\"ca_ES\">%s</Name></root>";
+
+	public static DDMStructure obtenerEstructura(String name, long scopeGroupId) {
+		DDMStructure retorn = null;
+		try {
+			List<DDMStructure> structure = DDMStructureLocalServiceUtil
+					.getStructure(scopeGroupId,
+							String.format(nameStructureTemplate, name), "");
+			if (structure.size() > 0) {
+				retorn = structure.get(0);
+			}
+		} catch (SystemException e) {
+			LOG.error("Error al obtenir la estructura " + name);
+		}
+		return retorn;
+	}
+
+	public static List<JournalArticle> obtenerOficinas(long scopeGroupId,
+			int start, int end) {
+		List<JournalArticle> articles = new ArrayList<JournalArticle>();
+
+		LOG.error("obtenirOficines - INICI");
+
+		AssetEntryQuery assetEntryQuery = new AssetEntryQuery();
+		long[] groupsIds = new long[1];
+		groupsIds[0] = scopeGroupId;
+
+		DDMStructure estructura = obtenerEstructura(ddmStructureName,
+				groupsIds[0]);
+		if (estructura == null) {
+			return articles;
+		}
+
+		assetEntryQuery.setGroupIds(groupsIds);
+		assetEntryQuery.setPublishDate(new Date());
+		assetEntryQuery.setExpirationDate(new Date());
+		long[] classTypeIds = new long[1];
+		classTypeIds[0] = estructura.getStructureId();
+		assetEntryQuery.setClassTypeIds(classTypeIds);
+		assetEntryQuery.setStart(start);
+		assetEntryQuery.setEnd(end);
+		assetEntryQuery.setClassName(JournalArticle.class.getName());
+
+		try {
+
+			// Obtenir tots els articles
+			List<AssetEntry> listaAssets = AssetEntryLocalServiceUtil
+					.getEntries(assetEntryQuery);
+
+			for (AssetEntry assetEntry : listaAssets) {
+				try {
+					JournalArticle article = JournalArticleLocalServiceUtil
+							.getLatestArticle(assetEntry.getClassPK(),
+									WorkflowConstants.STATUS_APPROVED);
+					articles.add(article);
+				} catch (Exception e) {
+					LOG.debug("No s'ha pogut carregar un article en la cerca ",
+							e);
+				}
+			}
+
+		} catch (SystemException e) {
+			LOG.error("Error al obtenir els missatges");
+		}
+
+		LOG.error("size=" + articles.size());
+		return articles;
+
+	}
+
+	public static boolean isMapFieldEmpty(Map<Locale, String> field) {
+		boolean isEmptyTitle = true;
+		for (String value : field.values()) {
+			if (value != null && !value.trim().equals(StringPool.BLANK)) {
+				isEmptyTitle = false;
+			}
+		}
+		return isEmptyTitle;
+	}
+
+}

@@ -1,0 +1,112 @@
+<%@ include file="/html/oficinasviviendaadministracion/init.jsp"%>
+
+<%
+
+	long idOficina = ParamUtil.getLong(request, Parametros.FIELD_IDOFICINA);
+	String nombreOficina = ParamUtil.getString(request, Parametros.FIELD_NOMBRE);
+	
+	List <Tipo> listaTiposOficina = TipoLocalServiceUtil.getTipos(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+	long idTipo = OficinaTipoLocalServiceUtil.obtenerTipoPorOficina(idOficina);
+	
+	
+%>
+
+<liferay-portlet:renderURL var="cancelar" >
+	<liferay-portlet:param name="mvcPath" value="/html/oficinasviviendaadministracion/view.jsp" />
+</liferay-portlet:renderURL>
+
+<portlet:actionURL name='guardarOficina' var="guardarOficinaURL" />
+
+<div class="taglib-header">
+	<h3 class="header-title"><%=nombreOficina%></h3>
+</div>
+<aui:form name="fm" action="<%=guardarOficinaURL.toString()%>"
+	method="post">
+	<aui:input name="<%=Parametros.FIELD_IDOFICINA%>" type="hidden" value="<%=idOficina%>" />
+
+	<label class="control-label" ><%=LanguageUtil.get(pageContext, "tipo-oficina") %></label>
+	<aui:select label="" name='<%=Parametros.FIELD_IDTIPO%>' required="true" showEmptyOption='true' >
+		<%
+			for (Tipo tipo : listaTiposOficina) {
+		%>
+		<aui:option label="<%=tipo.getNombre(locale)%>"
+			value='<%=tipo.getIdTipo()%>'
+			selected="<%=(idTipo == tipo.getIdTipo())%>" />
+		<%
+			}
+		%>
+	</aui:select>
+
+	<%@include file="editarOficinaServicioMunicipio.jsp" %>
+	
+
+
+
+	<aui:button name="submit" type="submit" value="save" onClick='<%=renderResponse.getNamespace() + "customSubmit();" %>' />
+	<aui:button href="<%=cancelar.toString()%>" type="cancel" />
+</aui:form>
+
+<aui:script use="aui-base">
+		
+AUI().use('liferay-auto-fields', function(A) {
+	new Liferay.AutoFields({
+		contentBox : '#servicioMunicipio',
+		fieldIndexes : '<portlet:namespace />rowIndexes'
+	}).render();
+});
+		
+		Liferay.provide(
+				window,
+				'<portlet:namespace />customSubmit',
+				function() {
+					A = AUI();
+					var lista = A.all('input[name^="<portlet:namespace />municipiosIds"]');
+					
+// 					A.each(
+// 							lista,
+// 							function(item, index, collection) {
+// 								alert( item.get('name') );
+// 								alert( index);
+// 								var nombre = "<portlet:namespace />currentMunicipiosIds";
+// 								var elemento = A.one("#"+nombre+(index+1));
+// 								alert( "#"+nombre+ (index+1) );
+// 								alert( elemento );
+// 							}
+// 					);
+					
+					var val1 = "#<portlet:namespace />municipiosIds";
+					var val2 = "#<portlet:namespace />currentMunicipiosIds";
+					var elemento;
+					var valor;
+					for (var i = 1; i <= lista.size(); i++) {
+						
+						if ( i == 1){
+							elemento = A.one(val1);
+							valor = A.one(val2);
+						}else{
+							elemento = A.one(val1+i);
+							valor = A.one(val2+i);
+						}
+						alert(elemento);
+						alert(valor);
+						if (elemento){
+							elemento.value = Liferay.Util.listSelect(valor); 
+							alert(Liferay.Util.listSelect(valor));
+						}
+					}
+					
+					
+					
+					
+// 					if (document.<portlet:namespace />fm.<portlet:namespace />municipiosIds) {
+// 						document.<portlet:namespace />fm.<portlet:namespace />municipiosIds.value = Liferay.Util.listSelect(document.<portlet:namespace />fm.<portlet:namespace />currentMunicipiosIds);
+// 					}
+					submitForm(document.<portlet:namespace />fm);
+				},
+				['liferay-util-list-fields']
+			);
+	
+		
+	</aui:script>
+

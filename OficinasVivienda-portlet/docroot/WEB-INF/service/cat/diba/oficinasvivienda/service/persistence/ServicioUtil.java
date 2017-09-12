@@ -1,0 +1,462 @@
+/**
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ *
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
+ *
+ *
+ *
+ */
+
+package cat.diba.oficinasvivienda.service.persistence;
+
+import cat.diba.oficinasvivienda.model.Servicio;
+
+import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.ReferenceRegistry;
+import com.liferay.portal.service.ServiceContext;
+
+import java.util.List;
+
+/**
+ * The persistence utility for the servicio service. This utility wraps {@link ServicioPersistenceImpl} and provides direct access to the database for CRUD operations. This utility should only be used by the service layer, as it must operate within a transaction. Never access this utility in a JSP, controller, model, or other front-end class.
+ *
+ * <p>
+ * Caching information and settings can be found in <code>portal.properties</code>
+ * </p>
+ *
+ * @author gonzalezscr
+ * @see ServicioPersistence
+ * @see ServicioPersistenceImpl
+ * @generated
+ */
+public class ServicioUtil {
+	/*
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify this class directly. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
+	 */
+
+	/**
+	 * @see com.liferay.portal.service.persistence.BasePersistence#clearCache()
+	 */
+	public static void clearCache() {
+		getPersistence().clearCache();
+	}
+
+	/**
+	 * @see com.liferay.portal.service.persistence.BasePersistence#clearCache(com.liferay.portal.model.BaseModel)
+	 */
+	public static void clearCache(Servicio servicio) {
+		getPersistence().clearCache(servicio);
+	}
+
+	/**
+	 * @see com.liferay.portal.service.persistence.BasePersistence#countWithDynamicQuery(DynamicQuery)
+	 */
+	public static long countWithDynamicQuery(DynamicQuery dynamicQuery)
+		throws SystemException {
+		return getPersistence().countWithDynamicQuery(dynamicQuery);
+	}
+
+	/**
+	 * @see com.liferay.portal.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery)
+	 */
+	public static List<Servicio> findWithDynamicQuery(DynamicQuery dynamicQuery)
+		throws SystemException {
+		return getPersistence().findWithDynamicQuery(dynamicQuery);
+	}
+
+	/**
+	 * @see com.liferay.portal.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery, int, int)
+	 */
+	public static List<Servicio> findWithDynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end)
+		throws SystemException {
+		return getPersistence().findWithDynamicQuery(dynamicQuery, start, end);
+	}
+
+	/**
+	 * @see com.liferay.portal.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery, int, int, OrderByComparator)
+	 */
+	public static List<Servicio> findWithDynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator orderByComparator) throws SystemException {
+		return getPersistence()
+				   .findWithDynamicQuery(dynamicQuery, start, end,
+			orderByComparator);
+	}
+
+	/**
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel)
+	 */
+	public static Servicio update(Servicio servicio) throws SystemException {
+		return getPersistence().update(servicio);
+	}
+
+	/**
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, ServiceContext)
+	 */
+	public static Servicio update(Servicio servicio,
+		ServiceContext serviceContext) throws SystemException {
+		return getPersistence().update(servicio, serviceContext);
+	}
+
+	/**
+	* Returns all the servicios where companyId = &#63; and groupId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param groupId the group ID
+	* @return the matching servicios
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<cat.diba.oficinasvivienda.model.Servicio> findBycompanyGroup(
+		long companyId, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findBycompanyGroup(companyId, groupId);
+	}
+
+	/**
+	* Returns a range of all the servicios where companyId = &#63; and groupId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link cat.diba.oficinasvivienda.model.impl.ServicioModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param groupId the group ID
+	* @param start the lower bound of the range of servicios
+	* @param end the upper bound of the range of servicios (not inclusive)
+	* @return the range of matching servicios
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<cat.diba.oficinasvivienda.model.Servicio> findBycompanyGroup(
+		long companyId, long groupId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .findBycompanyGroup(companyId, groupId, start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the servicios where companyId = &#63; and groupId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link cat.diba.oficinasvivienda.model.impl.ServicioModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param groupId the group ID
+	* @param start the lower bound of the range of servicios
+	* @param end the upper bound of the range of servicios (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching servicios
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<cat.diba.oficinasvivienda.model.Servicio> findBycompanyGroup(
+		long companyId, long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .findBycompanyGroup(companyId, groupId, start, end,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the first servicio in the ordered set where companyId = &#63; and groupId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param groupId the group ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching servicio
+	* @throws cat.diba.oficinasvivienda.NoSuchServicioException if a matching servicio could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static cat.diba.oficinasvivienda.model.Servicio findBycompanyGroup_First(
+		long companyId, long groupId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws cat.diba.oficinasvivienda.NoSuchServicioException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .findBycompanyGroup_First(companyId, groupId,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the first servicio in the ordered set where companyId = &#63; and groupId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param groupId the group ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching servicio, or <code>null</code> if a matching servicio could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static cat.diba.oficinasvivienda.model.Servicio fetchBycompanyGroup_First(
+		long companyId, long groupId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchBycompanyGroup_First(companyId, groupId,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the last servicio in the ordered set where companyId = &#63; and groupId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param groupId the group ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching servicio
+	* @throws cat.diba.oficinasvivienda.NoSuchServicioException if a matching servicio could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static cat.diba.oficinasvivienda.model.Servicio findBycompanyGroup_Last(
+		long companyId, long groupId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws cat.diba.oficinasvivienda.NoSuchServicioException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .findBycompanyGroup_Last(companyId, groupId,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the last servicio in the ordered set where companyId = &#63; and groupId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param groupId the group ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching servicio, or <code>null</code> if a matching servicio could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static cat.diba.oficinasvivienda.model.Servicio fetchBycompanyGroup_Last(
+		long companyId, long groupId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchBycompanyGroup_Last(companyId, groupId,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the servicios before and after the current servicio in the ordered set where companyId = &#63; and groupId = &#63;.
+	*
+	* @param idServicio the primary key of the current servicio
+	* @param companyId the company ID
+	* @param groupId the group ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next servicio
+	* @throws cat.diba.oficinasvivienda.NoSuchServicioException if a servicio with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static cat.diba.oficinasvivienda.model.Servicio[] findBycompanyGroup_PrevAndNext(
+		long idServicio, long companyId, long groupId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws cat.diba.oficinasvivienda.NoSuchServicioException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .findBycompanyGroup_PrevAndNext(idServicio, companyId,
+			groupId, orderByComparator);
+	}
+
+	/**
+	* Removes all the servicios where companyId = &#63; and groupId = &#63; from the database.
+	*
+	* @param companyId the company ID
+	* @param groupId the group ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeBycompanyGroup(long companyId, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeBycompanyGroup(companyId, groupId);
+	}
+
+	/**
+	* Returns the number of servicios where companyId = &#63; and groupId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param groupId the group ID
+	* @return the number of matching servicios
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countBycompanyGroup(long companyId, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countBycompanyGroup(companyId, groupId);
+	}
+
+	/**
+	* Caches the servicio in the entity cache if it is enabled.
+	*
+	* @param servicio the servicio
+	*/
+	public static void cacheResult(
+		cat.diba.oficinasvivienda.model.Servicio servicio) {
+		getPersistence().cacheResult(servicio);
+	}
+
+	/**
+	* Caches the servicios in the entity cache if it is enabled.
+	*
+	* @param servicios the servicios
+	*/
+	public static void cacheResult(
+		java.util.List<cat.diba.oficinasvivienda.model.Servicio> servicios) {
+		getPersistence().cacheResult(servicios);
+	}
+
+	/**
+	* Creates a new servicio with the primary key. Does not add the servicio to the database.
+	*
+	* @param idServicio the primary key for the new servicio
+	* @return the new servicio
+	*/
+	public static cat.diba.oficinasvivienda.model.Servicio create(
+		long idServicio) {
+		return getPersistence().create(idServicio);
+	}
+
+	/**
+	* Removes the servicio with the primary key from the database. Also notifies the appropriate model listeners.
+	*
+	* @param idServicio the primary key of the servicio
+	* @return the servicio that was removed
+	* @throws cat.diba.oficinasvivienda.NoSuchServicioException if a servicio with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static cat.diba.oficinasvivienda.model.Servicio remove(
+		long idServicio)
+		throws cat.diba.oficinasvivienda.NoSuchServicioException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().remove(idServicio);
+	}
+
+	public static cat.diba.oficinasvivienda.model.Servicio updateImpl(
+		cat.diba.oficinasvivienda.model.Servicio servicio)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().updateImpl(servicio);
+	}
+
+	/**
+	* Returns the servicio with the primary key or throws a {@link cat.diba.oficinasvivienda.NoSuchServicioException} if it could not be found.
+	*
+	* @param idServicio the primary key of the servicio
+	* @return the servicio
+	* @throws cat.diba.oficinasvivienda.NoSuchServicioException if a servicio with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static cat.diba.oficinasvivienda.model.Servicio findByPrimaryKey(
+		long idServicio)
+		throws cat.diba.oficinasvivienda.NoSuchServicioException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findByPrimaryKey(idServicio);
+	}
+
+	/**
+	* Returns the servicio with the primary key or returns <code>null</code> if it could not be found.
+	*
+	* @param idServicio the primary key of the servicio
+	* @return the servicio, or <code>null</code> if a servicio with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static cat.diba.oficinasvivienda.model.Servicio fetchByPrimaryKey(
+		long idServicio)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByPrimaryKey(idServicio);
+	}
+
+	/**
+	* Returns all the servicios.
+	*
+	* @return the servicios
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<cat.diba.oficinasvivienda.model.Servicio> findAll()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findAll();
+	}
+
+	/**
+	* Returns a range of all the servicios.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link cat.diba.oficinasvivienda.model.impl.ServicioModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param start the lower bound of the range of servicios
+	* @param end the upper bound of the range of servicios (not inclusive)
+	* @return the range of servicios
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<cat.diba.oficinasvivienda.model.Servicio> findAll(
+		int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findAll(start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the servicios.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link cat.diba.oficinasvivienda.model.impl.ServicioModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param start the lower bound of the range of servicios
+	* @param end the upper bound of the range of servicios (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of servicios
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<cat.diba.oficinasvivienda.model.Servicio> findAll(
+		int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findAll(start, end, orderByComparator);
+	}
+
+	/**
+	* Removes all the servicios from the database.
+	*
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeAll()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeAll();
+	}
+
+	/**
+	* Returns the number of servicios.
+	*
+	* @return the number of servicios
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countAll()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countAll();
+	}
+
+	public static ServicioPersistence getPersistence() {
+		if (_persistence == null) {
+			_persistence = (ServicioPersistence)PortletBeanLocatorUtil.locate(cat.diba.oficinasvivienda.service.ClpSerializer.getServletContextName(),
+					ServicioPersistence.class.getName());
+
+			ReferenceRegistry.registerReference(ServicioUtil.class,
+				"_persistence");
+		}
+
+		return _persistence;
+	}
+
+	/**
+	 * @deprecated As of 6.2.0
+	 */
+	public void setPersistence(ServicioPersistence persistence) {
+	}
+
+	private static ServicioPersistence _persistence;
+}

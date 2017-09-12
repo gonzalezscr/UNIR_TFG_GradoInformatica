@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="cat.diba.oficinasvivienda.model.Municipio" />
+	<import class="cat.diba.oficinasvivienda.model.OficinaServicioMunicipio" />
+	<import class="cat.diba.oficinasvivienda.model.OficinaTipo" />
+	<import class="cat.diba.oficinasvivienda.model.Servicio" />
+	<import class="cat.diba.oficinasvivienda.model.Tipo" />
+	<class name="cat.diba.oficinasvivienda.model.impl.MunicipioImpl" table="Municipio">
+		<cache usage="read-write" />
+		<id name="codigoIne" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+		<property name="nombre" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="cat.diba.oficinasvivienda.model.impl.OficinaServicioMunicipioImpl" table="OficinaServicioMunicipio">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="idOficina" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="idServicio" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="codigoIne" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="cat.diba.oficinasvivienda.model.impl.OficinaTipoImpl" table="OficinaTipo">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="idOficina" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="idTipo" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="cat.diba.oficinasvivienda.model.impl.ServicioImpl" table="Servicio">
+		<id name="idServicio" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="nombre" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="cat.diba.oficinasvivienda.model.impl.TipoImpl" table="Tipo">
+		<id name="idTipo" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="nombre" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+</hibernate-mapping>
